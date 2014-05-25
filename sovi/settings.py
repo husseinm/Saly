@@ -61,18 +61,6 @@ TEMPLATE_DIRS = {
     os.path.join(BASE_DIR, 'sovi/templates')
 }
 
-# Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-"""
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
@@ -92,15 +80,21 @@ LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_URL = '/users/logout'
 
+# Static asset configuration
+import os
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
-
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_PATH, 'static'),
+)
 
 # Heroku + Local Database
 import dj_database_url
 
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://localhost')
+    'default': dj_database_url.config(default=
+                                      'postgres://Mahdi@localhost/sovi')
 }

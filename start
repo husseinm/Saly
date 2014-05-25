@@ -2,21 +2,34 @@
 
 startup()
 {
+  echo '################'
+  echo '# Sovi Server! #'
+  echo '################'
+
+  # Hack for Fixing the stupid settings bug
+  export DJANGO_SETTINGS_MODULE='sovi.settings'
+
   postgres -D /usr/local/var/postgres &
   POSTGRE_PID=$!
 
   gunicorn sovi.wsgi &
   GUNICORN_PID=$!
-  
-  echo '#####################'
-  echo '# Ready For Action! #'
-  echo '#####################'
+
+  compass watch ./sovi &
+  COMPASS_PID=$!
+
 }
 
 close() 
 {
   kill $POSTGRE_PID
+  wait $POSTGRE_PID
+  
   kill $GUNICORN_PID
+  wait $GUNICORN_PID
+
+  kill $COMPASS_PID
+  wait $COMPASS_PID
 
   echo ''
   echo '#############'
