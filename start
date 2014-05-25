@@ -6,8 +6,8 @@ startup()
   echo '# Sovi Server! #'
   echo '################'
 
-  # Hack for Fixing the stupid settings bug
-  export DJANGO_SETTINGS_MODULE='sovi.settings'
+  # Hack for Django Settings
+  export DJANGO_SETTINGS_MODULE="sovi.settings"
 
   postgres -D /usr/local/var/postgres &
   POSTGRE_PID=$!

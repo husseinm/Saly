@@ -1,1 +1,1 @@
-web: gunicorn sovi.wsgi
+web: gunicorn -w 4 sovi.wsgi
