@@ -1,0 +1,34 @@
+#! /bin/bash
+
+startup()
+{
+  postgres -D /usr/local/var/postgres &
+  POSTGRE_PID=$!
+
+  gunicorn sovi.wsgi &
+  GUNICORN_PID=$!
+  
+  echo '#####################'
+  echo '# Ready For Action! #'
+  echo '#####################'
+}
+
+close() 
+{
+  kill $POSTGRE_PID
+  kill $GUNICORN_PID
+
+  echo ''
+  echo '#############'
+  echo '# Good Bye! #'
+  echo '#############'
+  exit 0
+}
+
+# trap keyboard interrupt (control-c) & start
+trap close SIGINT
+
+# Start everything then go wait
+startup
+
+while true; do sleep 1; done
