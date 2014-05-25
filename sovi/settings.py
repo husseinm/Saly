@@ -64,12 +64,14 @@ TEMPLATE_DIRS = {
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+"""
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -95,3 +97,10 @@ LOGOUT_URL = '/users/logout'
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Heroku + Local Database
+import dj_database_url
+
+DATABASES = {
+    'default': dj_database_url.config(default='postgres://localhost')
+}
