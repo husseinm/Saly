@@ -7891,3 +7891,25 @@ button.close {
     display: none !important;
   }
 }
+/********\
+| Global |
+\********/
+/* line 4, ../sass/_global.scss */
+html, body {
+  height: 100%;
+}
+
+/* line 8, ../sass/_global.scss */
+.quarter-page {
+  min-height: 25%;
+  clear: both;
+}
+
+/*******\
+| Login |
+\*******/
+/* line 6, ../sass/_login.scss */
+.login-container {
+  width: 300px;
+  height: 100%;
+}

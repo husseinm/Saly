@@ -1,30 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Log in - Sovi</title>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" type="text/css" href="/static/app.css"
-          media="screen" />
-  </head>
-  <body>
-    {% if form.errors %}
-      <p>Your username and password do not match.</p>
-    {% endif %}
+{% extends 'head.html' %}
 
-    <form action="." method="post">
-      {% csrf_token %}
+{% block title %}Log in{% endblock %}
 
-      <label>Username:</label>
-      <input type="text" name="username" autofocus="true" placeholder="Username"/>
-      <br />
+{% block body %}
+  <div class="container-fluid login-container">
+    <div class="row quarter-page">
+    </div>
 
-      <label>Password:</label>
-      <input type="password" name="password" value="" placeholder="Password"/><br />
-      <br />
+    <div class="row">
+      <h1 class="text-center">Log In</h1>
 
-      <input type="submit" value="Log In" />
+      <form action="." method="post">
+        {% csrf_token %}
 
-      <input type="hidden" name="next" value="{{ next }}" />
-    </form>
-  </body>
-</html>
+        {% if form.errors %}
+        <div class="text-center alert alert-danger">
+          Your username or password is incorrect.
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+          <label>Username:</label>
+          <input type="text" class="form-control" name="username" autofocus="true" 
+                 placeholder="Username"/>
+        </div>
+
+        <div class="form-group">
+          <label>Password:</label>
+          <input type="password" class="form-control" name="password" value="" 
+                 placeholder="Password"/>
+        </div>
+
+        <div class="checkbox">
+            <label>
+              <input type="checkbox" name="remember"> Remember Me
+            </label>
+        </div>
+
+        <div class="row">
+          <button type="submit" class="btn btn-success">Log In</button>
+          <button type="submit" class="btn btn-default pull-right">
+            Forgot Password
+          </button>
+        </div>
+
+        <input type="hidden" name="next" value="{{ next }}" />
+      </form>
+    </div>
+  </div>
+{% endblock %}

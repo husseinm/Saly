@@ -12,7 +12,7 @@ startup()
   postgres -D /usr/local/var/postgres &
   POSTGRE_PID=$!
 
-  gunicorn sovi.wsgi &
+  gunicorn sovi.wsgi -b 192.168.1.8:8000 &
   GUNICORN_PID=$!
 
   compass watch ./sovi &
