@@ -1,0 +1,124 @@
+/*******\
+| Admin |
+\*******/
+$navbar-background-color: #383838;
+$navbar-text-color: #FFF;
+$navbar-link-hover-color: #AAA;
+$navbar-brandname-color: $navbar-text-color;
+$navbar-brandname-font-size: 20px;
+$username-font-size: 16px;
+$expand-sidebar-icon-size: $navbar-brandname-font-size;
+$sidebar-width: 150px;
+$sidebar-background-color: $navbar-background-color;
+$sidebar-button-height: 50px;
+$sidebar-icon-size: $expand-sidebar-icon-size;
+$sidebar-icon-color: $navbar-text-color;
+$sidebar-button-color: $sidebar-background-color;
+$sidebar-button-hover-color: #282828;
+$sidebar-button-border-color: #000;
+
+.header, header {
+  z-index: 1001;
+  margin-bottom: 0;
+  border: none;
+  border-radius: 0;
+  background-color: $navbar-background-color;
+  color: $navbar-text-color;
+}
+
+.username {
+  font-size: $username-font-size;
+}
+
+.navbar-header {
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+    > a {
+      color: $navbar-text-color;
+      transition: color 0.4s ease 0s;
+    }
+
+    > a:hover, > a:active, > a:focus {
+      color: $navbar-link-hover-color;
+      transition: color 0.4s ease 0s;
+    }
+}
+
+.navbar-brandname {
+  color: $navbar-brandname-color;
+  padding: 15px 15px;
+  font-size: $navbar-brandname-font-size;
+  line-height: 20px;
+  height: 50px;
+}
+
+.wrapper {
+  padding: 10px 10px 10px $sidebar-width + 10;
+  transition: all 0.4s ease 0s;
+}
+
+.wrapper-hidden {
+  padding-left: 10px;
+  transition: all 0.4s ease 0s;
+}
+
+.sidebar {
+  width: $sidebar-width;
+  height: 100%;
+  background-color: $sidebar-background-color;
+  position: fixed;
+  z-index: 1000;
+  transition: all 0.4s ease 0s;
+}
+
+.sidebar-hidden {
+  width: 0;
+  transition: all 0.4s ease 0s;
+}
+
+nav {
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding-left: 0;
+    a {
+      li {
+        padding: 5px;
+        border: none;
+        background-color: none;
+        color: $sidebar-icon-color;
+      }
+    }
+  }
+}
+
+.sidebar-button {
+  border: 1px solid $sidebar-button-border-color;
+  width: $sidebar-width;
+  height: $sidebar-button-height;
+  display: inline-block;
+  transition: all 0.4s ease 0s;
+}
+
+.sidebar-button:hover {
+  background-color: $sidebar-button-hover-color;
+  transition: all 0.4s ease 0s;
+}
+
+.sidebar-icon {
+  line-height: $sidebar-button-height - 10;
+  padding-left: 10px;
+  float: left;
+  vertical-align: middle;
+  font-size: $sidebar-icon-size;
+}
+
+.sidebar-button-text {
+  vertical-align: middle;
+  line-height: $sidebar-button-height - 10;
+}
+
+.expand-sidebar {
+  font-size: $expand-sidebar-icon-size;
+}
