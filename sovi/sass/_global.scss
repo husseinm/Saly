@@ -6,8 +6,7 @@ html, body {
 }
 
 .quarter-page {
-  min-height: 25%;
-  clear: both;
+  height: 25%;
 }
 
 .float-right {
@@ -18,35 +17,12 @@ html, body {
   float: left;
 }
 
-@-webkit-keyframes slideInLeft {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateX(-2000px);
-    transform: translateX(-2000px);
-  }
-
-  100% {
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-  }
+.full-size {
+  width: 100%;
+  height: 100%;
 }
 
-@keyframes slideInLeft {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateX(-2000px);
-    -ms-transform: translateX(-2000px);
-    transform: translateX(-2000px);
-  }
-
-  100% {
-    -webkit-transform: translateX(0);
-    -ms-transform: translateX(0);
-    transform: translateX(0);
-  }
-}
-
-.slideInLeft {
-  -webkit-animation-name: slideInLeft;
-  animation-name: slideInLeft;
+.full-size-important {
+  width: 100% !important;
+  height: 100% !important;
 }

@@ -2,8 +2,8 @@
 <html lang="en" {% block ngapp %}{% endblock %}>
   <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Title{% endblock %} - Sovi</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=5">
+    <title {% block ngtitle %}{% endblock %}>{% block title %}Title{% endblock %} - Sovi</title>
     <link rel="stylesheet" type="text/css" href="/static/app.css"
           media="screen" />
     {% block header %}{% endblock %}

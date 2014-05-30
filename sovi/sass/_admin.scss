@@ -1,39 +1,51 @@
 /*******\
 | Admin |
 \*******/
+
+// Navbar
+$navbar-height: 50px;
 $navbar-background-color: #383838;
 $navbar-text-color: #FFF;
 $navbar-link-hover-color: #AAA;
-$navbar-brandname-color: $navbar-text-color;
-$navbar-brandname-font-size: 20px;
+
+// Navbar Members
+$expand-sidebar-icon-size: 20px;
 $username-font-size: 16px;
-$expand-sidebar-icon-size: $navbar-brandname-font-size;
+
+// Sidebar
 $sidebar-width: 150px;
-$sidebar-background-color: $navbar-background-color;
 $sidebar-button-height: 50px;
 $sidebar-icon-size: $expand-sidebar-icon-size;
-$sidebar-icon-color: $navbar-text-color;
+$sidebar-background-color: $navbar-background-color;
 $sidebar-button-color: $sidebar-background-color;
 $sidebar-button-hover-color: #282828;
 $sidebar-button-border-color: #000;
+$sidebar-icon-color: $navbar-text-color;
 
-.header, header {
+// Footer
+$footer-height: 50px;
+$footer-text-color: $navbar-text-color;
+
+/**********************
+ *       Global       *
+ *********************/
+
+/**********
+ * Header *
+ **********/
+header {
+  @extend .full-size;
+  position: fixed;
+  height: $navbar-height;
+  padding: 15px;
   z-index: 1001;
-  margin-bottom: 0;
-  border: none;
-  border-radius: 0;
+  text-align: center;
+  border-bottom: 1px solid $sidebar-button-border-color;
   background-color: $navbar-background-color;
   color: $navbar-text-color;
 }
 
-.username {
-  font-size: $username-font-size;
-}
-
-.navbar-header {
-    padding: 15px;
-    text-align: center;
-    width: 100%;
+header {
     > a {
       color: $navbar-text-color;
       transition: color 0.4s ease 0s;
@@ -45,45 +57,66 @@ $sidebar-button-border-color: #000;
     }
 }
 
-.navbar-brandname {
-  color: $navbar-brandname-color;
-  padding: 15px 15px;
-  font-size: $navbar-brandname-font-size;
-  line-height: 20px;
-  height: 50px;
+.username {
+  @extend .float-right;
+  font-size: $username-font-size;
 }
 
+
+.expand-sidebar {
+  @extend .float-left;
+  font-size: $expand-sidebar-icon-size;
+}
+
+/********
+ * Body *
+ ********/
 .wrapper {
-  padding: 10px 10px 10px $sidebar-width + 10;
+  @extend .full-size-important;
+  padding-top: $navbar-height;
+  padding-left: $sidebar-width;
   transition: all 0.4s ease 0s;
 }
 
 .wrapper-hidden {
-  padding-left: 10px;
+  padding-left: 0;
   transition: all 0.4s ease 0s;
 }
 
+main {
+  @extend .full-size;
+  margin-bottom: -$footer-height;
+}
+
+/***********
+ * Sidebar *
+ ***********/
 .sidebar {
+  position: fixed;
+  top: $navbar-height;
   width: $sidebar-width;
   height: 100%;
-  background-color: $sidebar-background-color;
-  position: fixed;
+  border-right: 1px solid $sidebar-button-border-color;
   z-index: 1000;
+  background-color: $sidebar-background-color;
   transition: all 0.4s ease 0s;
 }
 
 .sidebar-hidden {
   width: 0;
+  border: 0;
   transition: all 0.4s ease 0s;
 }
 
 nav {
   ul {
-    list-style-type: none;
     margin: 0;
     padding-left: 0;
+    list-style-type: none;
+    text-align: center;
+
     a {
-      li {
+      > li {
         padding: 5px;
         border: none;
         background-color: none;
@@ -94,11 +127,12 @@ nav {
 }
 
 .sidebar-button {
-  border: 1px solid $sidebar-button-border-color;
   width: $sidebar-width;
   height: $sidebar-button-height;
   display: inline-block;
+  border-bottom: 1px solid $sidebar-button-border-color;
   transition: all 0.4s ease 0s;
+
 }
 
 .sidebar-button:hover {
@@ -106,19 +140,36 @@ nav {
   transition: all 0.4s ease 0s;
 }
 
-.sidebar-icon {
+.sidebar-button-text {
   line-height: $sidebar-button-height - 10;
+  vertical-align: middle;
+}
+
+.sidebar-icon {
+  @extend .float-left;
   padding-left: 10px;
-  float: left;
+  line-height: $sidebar-button-height - 10;
   vertical-align: middle;
   font-size: $sidebar-icon-size;
 }
 
-.sidebar-button-text {
+/**********
+ * Footer *
+ **********/
+
+footer {
+  height: $footer-height;
+  padding: 0 10px;
+  line-height: $footer-height;
   vertical-align: middle;
-  line-height: $sidebar-button-height - 10;
+  background-color: $sidebar-background-color;
+  color: $footer-text-color;
 }
 
-.expand-sidebar {
-  font-size: $expand-sidebar-icon-size;
+/*************************************
+ *            Script Edit            *
+ *************************************/
+#editor {
+  @extend .full-size;
+  z-index: 999;
 }
