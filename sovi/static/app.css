@@ -10405,36 +10405,47 @@ button.close {
 /********\
 | Global |
 \********/
-/* line 4, ../sass/_global.scss */
-html, body {
-  height: 100%;
-}
-
-/* line 8, ../sass/_global.scss */
+/* line 11, ../sass/_global.scss */
 .quarter-page {
   height: 25%;
 }
 
-/* line 12, ../sass/_global.scss */
+/* line 15, ../sass/_global.scss */
 .float-right, .username {
   float: right;
 }
 
-/* line 16, ../sass/_global.scss */
+/* line 19, ../sass/_global.scss */
 .float-left, .expand-sidebar, .sidebar-icon {
   float: left;
 }
 
-/* line 20, ../sass/_global.scss */
-.full-size, header, main, #editor {
+/* line 23, ../sass/_global.scss */
+.full-size, header, main, #editor, .editor-controls-button-list {
   width: 100%;
   height: 100%;
 }
 
-/* line 25, ../sass/_global.scss */
-.full-size-important, .wrapper {
+/* line 28, ../sass/_global.scss */
+.full-size-min-important, html, body {
+  min-width: 100% !important;
+  min-height: 100% !important;
+}
+
+/* line 33, ../sass/_global.scss */
+.full-size-important, html, body, .wrapper {
   width: 100% !important;
   height: 100% !important;
+}
+
+/* line 38, ../sass/_global.scss */
+.full-transition, .wrapper, .wrapper-hidden, .dropdown-menu, .dropdown-menu > li > a, .dropdown-menu > li > a:hover, .sidebar, .sidebar-hidden, .sidebar-button, .sidebar-button:hover {
+  transition: all 0.4s ease 0s;
+}
+
+/* line 42, ../sass/_global.scss */
+.color-transition, header > a, header > a:hover, header > a:active, header > a:focus, .editor-controls-button, .editor-controls-button > a, .editor-controls-button > a:hover, .editor-controls-button > a:active, .editor-controls-button > a:focus, .editor-controls-button:hover, .editor-controls-button-active {
+  transition: color 0.4s ease 0s;
 }
 
 /*******\
@@ -10455,7 +10466,7 @@ html, body {
 /**********
  * Header *
  **********/
-/* line 36, ../sass/_admin.scss */
+/* line 43, ../sass/_admin.scss */
 header {
   position: fixed;
   height: 50px;
@@ -10467,23 +10478,21 @@ header {
   color: white;
 }
 
-/* line 49, ../sass/_admin.scss */
+/* line 56, ../sass/_admin.scss */
 header > a {
   color: white;
-  transition: color 0.4s ease 0s;
 }
-/* line 54, ../sass/_admin.scss */
+/* line 61, ../sass/_admin.scss */
 header > a:hover, header > a:active, header > a:focus {
   color: #aaaaaa;
-  transition: color 0.4s ease 0s;
 }
 
-/* line 60, ../sass/_admin.scss */
+/* line 67, ../sass/_admin.scss */
 .username {
   font-size: 16px;
 }
 
-/* line 66, ../sass/_admin.scss */
+/* line 73, ../sass/_admin.scss */
 .expand-sidebar {
   font-size: 20px;
 }
@@ -10491,28 +10500,53 @@ header > a:hover, header > a:active, header > a:focus {
 /********
  * Body *
  ********/
-/* line 74, ../sass/_admin.scss */
+/* line 81, ../sass/_admin.scss */
 .wrapper {
   padding-top: 50px;
   padding-left: 150px;
-  transition: all 0.4s ease 0s;
 }
 
-/* line 81, ../sass/_admin.scss */
+/* line 88, ../sass/_admin.scss */
 .wrapper-hidden {
   padding-left: 0;
-  transition: all 0.4s ease 0s;
 }
 
-/* line 86, ../sass/_admin.scss */
+/* line 93, ../sass/_admin.scss */
 main {
   margin-bottom: -50px;
+}
+
+/* line 98, ../sass/_admin.scss */
+.dropdown-menu {
+  background-color: #484848;
+}
+/* line 103, ../sass/_admin.scss */
+.dropdown-menu > li > a {
+  color: white;
+}
+/* line 108, ../sass/_admin.scss */
+.dropdown-menu > li > a:hover {
+  background-color: #282828;
+  color: white;
+}
+
+/* line 116, ../sass/_admin.scss */
+.dropdown-selected {
+  background-color: #282828;
+  color: white;
+}
+
+/* line 121, ../sass/_admin.scss */
+.scrollable-menu {
+  height: auto;
+  max-height: 250px;
+  overflow-x: hidden;
 }
 
 /***********
  * Sidebar *
  ***********/
-/* line 94, ../sass/_admin.scss */
+/* line 130, ../sass/_admin.scss */
 .sidebar {
   position: fixed;
   top: 50px;
@@ -10521,24 +10555,22 @@ main {
   border-right: 1px solid black;
   z-index: 1000;
   background-color: #383838;
-  transition: all 0.4s ease 0s;
 }
 
-/* line 105, ../sass/_admin.scss */
+/* line 141, ../sass/_admin.scss */
 .sidebar-hidden {
   width: 0;
   border: 0;
-  transition: all 0.4s ease 0s;
 }
 
-/* line 112, ../sass/_admin.scss */
+/* line 148, ../sass/_admin.scss */
 nav ul {
   margin: 0;
   padding-left: 0;
   list-style-type: none;
   text-align: center;
 }
-/* line 119, ../sass/_admin.scss */
+/* line 155, ../sass/_admin.scss */
 nav ul a > li {
   padding: 5px;
   border: none;
@@ -10546,28 +10578,26 @@ nav ul a > li {
   color: white;
 }
 
-/* line 129, ../sass/_admin.scss */
+/* line 165, ../sass/_admin.scss */
 .sidebar-button {
   width: 150px;
   height: 50px;
   display: inline-block;
   border-bottom: 1px solid black;
-  transition: all 0.4s ease 0s;
 }
 
-/* line 138, ../sass/_admin.scss */
+/* line 174, ../sass/_admin.scss */
 .sidebar-button:hover {
   background-color: #282828;
-  transition: all 0.4s ease 0s;
 }
 
-/* line 143, ../sass/_admin.scss */
+/* line 179, ../sass/_admin.scss */
 .sidebar-button-text {
   line-height: 40px;
   vertical-align: middle;
 }
 
-/* line 148, ../sass/_admin.scss */
+/* line 184, ../sass/_admin.scss */
 .sidebar-icon {
   padding-left: 10px;
   line-height: 40px;
@@ -10578,7 +10608,7 @@ nav ul a > li {
 /**********
  * Footer *
  **********/
-/* line 160, ../sass/_admin.scss */
+/* line 196, ../sass/_admin.scss */
 footer {
   height: 50px;
   padding: 0 10px;
@@ -10586,12 +10616,64 @@ footer {
   vertical-align: middle;
   background-color: #383838;
   color: white;
+  overflow-y: hidden;
 }
 
 /*************************************
  *            Script Edit            *
  *************************************/
-/* line 172, ../sass/_admin.scss */
+/* line 216, ../sass/_admin.scss */
 #editor {
   z-index: 999;
+}
+
+/* line 221, ../sass/_admin.scss */
+.editor-controls {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  width: 50px;
+  height: 250px;
+  margin-top: -125px;
+  z-index: 1000;
+  border: 1px solid black;
+  border-right: 0;
+  background-color: #383838;
+}
+
+/* line 234, ../sass/_admin.scss */
+.editor-controls-button-list {
+  margin: 0;
+  padding: 5px;
+  list-style-type: none;
+}
+
+/* line 241, ../sass/_admin.scss */
+.editor-controls-button {
+  width: 39px;
+  height: 39px;
+  font-size: 24px;
+  line-height: 39px;
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+}
+/* line 251, ../sass/_admin.scss */
+.editor-controls-button > a {
+  color: white;
+}
+/* line 256, ../sass/_admin.scss */
+.editor-controls-button > a:hover, .editor-controls-button > a:active, .editor-controls-button > a:focus {
+  color: #aaaaaa;
+  text-decoration: none;
+}
+
+/* line 263, ../sass/_admin.scss */
+.editor-controls-button:hover, .editor-controls-button-active {
+  color: #aaaaaa;
+}
+
+/* line 272, ../sass/_admin.scss */
+.fullscreen-main {
+  margin-bottom: 0;
 }

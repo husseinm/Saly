@@ -1,8 +1,11 @@
 /********\
 | Global |
 \********/
+$transition-duration: 0.4s;
+
 html, body {
-  height: 100%;
+  @extend .full-size-min-important;
+  @extend .full-size-important;
 }
 
 .quarter-page {
@@ -22,7 +25,20 @@ html, body {
   height: 100%;
 }
 
+.full-size-min-important {
+  min-width: 100% !important;
+  min-height: 100% !important;
+}
+
 .full-size-important {
   width: 100% !important;
   height: 100% !important;
+}
+
+.full-transition {
+  transition: all $transition-duration ease 0s;
+}
+
+.color-transition {
+  transition: color $transition-duration ease 0s;
 }

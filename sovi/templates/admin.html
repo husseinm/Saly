@@ -3,6 +3,8 @@
 {% block title %}Admin{% endblock %}
 {% block ngtitle %}ng-bind="title + ' - Sovi'"{% endblock %}
 {% block header %}
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.10/angular.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.10/angular-route.js"></script>
   <script src="/static/js/ace/ace.js"></script>
@@ -26,14 +28,14 @@
       <ul>
         <a href="/">
           <li class="sidebar-button">
-            <i class="fa fa-home sidebar-icon"></i>
-            <span class="sidebar-button-text">Home</span>
+            <i class="fa fa-database sidebar-icon"></i>
+            <span class="sidebar-button-text">Data</span>
           </li>
         </a>
         <a href="/script">
           <li class="sidebar-button">
             <i class="fa fa-edit sidebar-icon"></i>
-            <span class="sidebar-button-text">Script Editor</span>
+            <span class="sidebar-button-text">Script</span>
           </li>
         </a>
         <a href="/users/me/preferences">

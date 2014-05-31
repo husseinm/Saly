@@ -26,6 +26,13 @@ $sidebar-icon-color: $navbar-text-color;
 $footer-height: 50px;
 $footer-text-color: $navbar-text-color;
 
+// Dropdown
+$dropdown-background-color: #484848;
+$dropdown-text-color: $navbar-text-color;
+$dropdown-hover-background-color: $sidebar-button-hover-color;
+$dropdown-hover-text-color: $navbar-text-color;
+$scrollable-dropdown-height: 250px;
+
 /**********************
  *       Global       *
  *********************/
@@ -47,13 +54,13 @@ header {
 
 header {
     > a {
+      @extend .color-transition;
       color: $navbar-text-color;
-      transition: color 0.4s ease 0s;
     }
 
     > a:hover, > a:active, > a:focus {
+      @extend .color-transition;
       color: $navbar-link-hover-color;
-      transition: color 0.4s ease 0s;
     }
 }
 
@@ -73,14 +80,14 @@ header {
  ********/
 .wrapper {
   @extend .full-size-important;
+  @extend .full-transition;
   padding-top: $navbar-height;
   padding-left: $sidebar-width;
-  transition: all 0.4s ease 0s;
 }
 
 .wrapper-hidden {
+  @extend .full-transition;
   padding-left: 0;
-  transition: all 0.4s ease 0s;
 }
 
 main {
@@ -88,10 +95,40 @@ main {
   margin-bottom: -$footer-height;
 }
 
+.dropdown-menu {
+  @extend .full-transition;
+  background-color: $dropdown-background-color;
+
+  > li {
+    > a {
+      @extend .full-transition;
+      color: $dropdown-text-color;
+    }
+
+    > a:hover {
+      @extend .full-transition;
+      background-color: $dropdown-hover-background-color;
+      color: $dropdown-hover-text-color;
+    }
+  }
+}
+
+.dropdown-selected {
+  background-color: $dropdown-hover-background-color;
+  color: $dropdown-hover-text-color;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: $scrollable-dropdown-height;
+    overflow-x: hidden;
+}
+
 /***********
  * Sidebar *
  ***********/
 .sidebar {
+  @extend .full-transition;
   position: fixed;
   top: $navbar-height;
   width: $sidebar-width;
@@ -99,13 +136,12 @@ main {
   border-right: 1px solid $sidebar-button-border-color;
   z-index: 1000;
   background-color: $sidebar-background-color;
-  transition: all 0.4s ease 0s;
 }
 
 .sidebar-hidden {
+  @extend .full-transition;
   width: 0;
   border: 0;
-  transition: all 0.4s ease 0s;
 }
 
 nav {
@@ -127,17 +163,17 @@ nav {
 }
 
 .sidebar-button {
+  @extend .full-transition;
   width: $sidebar-width;
   height: $sidebar-button-height;
   display: inline-block;
   border-bottom: 1px solid $sidebar-button-border-color;
-  transition: all 0.4s ease 0s;
 
 }
 
 .sidebar-button:hover {
+  @extend .full-transition;
   background-color: $sidebar-button-hover-color;
-  transition: all 0.4s ease 0s;
 }
 
 .sidebar-button-text {
@@ -164,12 +200,75 @@ footer {
   vertical-align: middle;
   background-color: $sidebar-background-color;
   color: $footer-text-color;
+  overflow-y: hidden;
 }
 
 /*************************************
  *            Script Edit            *
  *************************************/
+$editor-controls-width: 50px;
+$editor-controls-height: 250px;
+$editor-controls-background-color: $sidebar-background-color;
+$editor-controls-button-size: $editor-controls-width - 10 - 1; // Padd. + Marg.
+$editor-controls-button-color: $sidebar-icon-color;
+$editor-controls-button-hover-color: $navbar-link-hover-color;
+
 #editor {
   @extend .full-size;
   z-index: 999;
+}
+
+.editor-controls {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  width: $editor-controls-width;
+  height: $editor-controls-height;
+  margin-top: -$editor-controls-height / 2;
+  z-index: 1000;
+  border: 1px solid $sidebar-button-border-color;
+  border-right: 0;
+  background-color: $sidebar-background-color;
+}
+
+.editor-controls-button-list {
+  @extend .full-size;
+  margin: 0;
+  padding: 5px;
+  list-style-type: none;
+}
+
+.editor-controls-button {
+  @extend .color-transition;
+  width: $editor-controls-button-size;
+  height: $editor-controls-button-size;
+  font-size: $editor-controls-button-size - 15;
+  line-height: $editor-controls-button-size;
+  text-align: center;
+  vertical-align: middle;
+  color: $editor-controls-button-color;
+
+  > a {
+    @extend .color-transition;
+    color: $editor-controls-button-color;
+  }
+
+  > a:hover, > a:active, > a:focus {
+    @extend .color-transition;
+    color: $editor-controls-button-hover-color;
+    text-decoration: none;
+  }
+}
+
+.editor-controls-button:hover {
+  @extend .color-transition;
+  color: $editor-controls-button-hover-color;
+}
+
+.editor-controls-button-active {
+  @extend .editor-controls-button:hover;
+}
+
+.fullscreen-main {
+  margin-bottom: 0;
 }
