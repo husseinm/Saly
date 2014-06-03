@@ -38,9 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'sovi',
     'sovi.api',
-    'sovi.admin',
-    'sovi.admin.teams',
-    'sovi.admin.users',
+    'sovi.api.teams',
+    'sovi.api.events',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -74,11 +73,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_URL = '/users/login'
+LOGIN_URL = '/login'
 
 LOGIN_REDIRECT_URL = '/'
 
-LOGOUT_URL = '/users/logout'
+LOGOUT_URL = '/logout'
 
 # Static asset configuration
 import os

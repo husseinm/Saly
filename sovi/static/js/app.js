@@ -20,7 +20,12 @@ sovi.config(['$routeProvider', '$locationProvider',
         templateUrl: '/static/partials/editor.html',
         controller: 'AdminScriptEditor'
       }).
-      when('/users/me/preferences', {
+      when('/reports', {
+        title: 'Reports',
+        templateUrl: '/static/partials/reports.html',
+        controller: 'AdminReportViewer'
+      }).
+      when('/preferences', {
         title: 'Preferences',
         templateUrl: '/static/partials/preferences.html',
         controller: 'AdminPreferences'
@@ -168,6 +173,10 @@ soviControllers.controller('AdminScriptEditor', ['$scope', '$http',
     $scope.setTheme($scope.currentTheme);
     $scope.setFontSize($scope.currentFontSize);
     $scope.setKeybinding($scope.currentKeybinding);
+  }]);
+
+soviControllers.controller('AdminReportViewer', ['$scope', '$http', 
+  function($scope, $http) {
   }]);
 
 soviControllers.controller('AdminPreferences', ['$scope', '$http', 
