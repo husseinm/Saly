@@ -89,3 +89,12 @@ Temporary Items
 
 ### SASS ###
 .sass-cache/
+
+### Bower ###
+bower/
+
+### Build files ###
+build/
+node_modules/
+bower/
+BOWER_TEMP/

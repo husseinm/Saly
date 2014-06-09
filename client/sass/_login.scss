@@ -1,0 +1,16 @@
+/*******\
+| Login |
+\*******/
+$login-container-size: 300px;
+
+.login-container {
+  position: absolute;
+  top: 10%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: $login-container-size;
+  height: $login-container-size;
+  margin-left: auto;
+  margin-right: auto;
+}

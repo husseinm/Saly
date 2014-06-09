@@ -2,13 +2,85 @@
 <html lang="en" {% block ngapp %}{% endblock %}>
   <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=5">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=5"/>
     <title {% block ngtitle %}{% endblock %}>{% block title %}Title{% endblock %} - Sovi</title>
-    <link rel="stylesheet" type="text/css" href="/static/app.css"
-          media="screen" />
-    {% block header %}{% endblock %}
+    <style>
+      /* Based on Tobias Ahlin's Spinkit*/
+      .wrapper-admin-panel {
+        display: none;
+      }
+
+      .loading-screen {
+        background-color: #FFF;
+        width: 100%;
+        height: 100%;
+      }
+
+      .spinner {
+        margin: 0 auto;
+        width: 75px;
+        height: 75px;
+        position: relative;
+      }
+
+      .spinner-v-align {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        top: 40%;
+      }
+
+      .cube1, .cube2 {
+        visibility: visible;
+        background-color: #333;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        
+        -webkit-animation: cubemove 1.8s infinite ease-in-out;
+        animation: cubemove 1.8s infinite ease-in-out;
+      }
+
+      .cube2 {
+        -webkit-animation-delay: -0.9s;
+        animation-delay: -0.9s;
+      }
+
+      @-webkit-keyframes cubemove {
+        25% { -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5) }
+        50% { -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg) }
+        75% { -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5) }
+        100% { -webkit-transform: rotate(-360deg) }
+      }
+
+      @keyframes cubemove {
+        25% { 
+          transform: translateX(42px) rotate(-90deg) scale(0.5);
+          -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+        } 50% { 
+          transform: translateX(42px) translateY(42px) rotate(-179deg);
+          -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+        } 50.1% { 
+          transform: translateX(42px) translateY(42px) rotate(-180deg);
+          -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+        } 75% { 
+          transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+          -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+        } 100% { 
+          transform: rotate(-360deg);
+          -webkit-transform: rotate(-360deg);
+        }
+      }
+    </style>
   </head>
   <body>
     {% block body %}{% endblock %}
+    {% block footer %}{% endblock %}
+    <link rel="stylesheet" type="text/css" href="/static/css/app.css"
+          media="screen" />
   </body>
 </html>

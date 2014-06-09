@@ -40,6 +40,8 @@ INSTALLED_APPS = (
     'sovi.api',
     'sovi.api.teams',
     'sovi.api.events',
+    'sovi.api.awards',
+    'sovi.api.matches',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -87,7 +89,7 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_PATH, 'static'),
+    os.path.join(PROJECT_PATH, '../client/build'),
 )
 
 # Heroku + Local Database

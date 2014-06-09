@@ -1,0 +1,36 @@
+{
+  "name": "Sovi",
+  "version": "0.0.1",
+  "authors": "Mahdi Hussein <m@hdihusse.in>",
+  "description": "Sovi Scouting System by F.R.C. Team 180 S.P.A.M.",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "./client/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "~4.1.0",
+    "bootstrap-sass": "~3.0.2",
+    "ace-builds": "~1.1.3"
+  },
+  "exportsOverride": {
+    "bootstrap-sass": {
+      "js": "js/*.js"
+    },
+    "font-awesome": {
+      "fonts": [
+        "fonts/*.svg",
+        "fonts/*.ttf",
+        "fonts/*.eot",
+        "fonts/*.woff"
+      ]
+    },
+    "ace-builds": {
+      "js": "src-min/*.js"
+    }
+  }
+}

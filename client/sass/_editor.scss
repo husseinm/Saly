@@ -1,0 +1,71 @@
+/*************\
+| Script Edit |
+\*************/
+
+// Controls
+$editor-controls-width: 50px;
+$editor-controls-height: 250px;
+$editor-controls-background-color: $sidebar-background-color;
+$editor-controls-button-size: $editor-controls-width - 10 - 1; // Padd. + Marg.
+$editor-controls-button-color: $sidebar-icon-color;
+$editor-controls-button-hover-color: $navbar-link-hover-color;
+
+#editor {
+  @extend .full-size;
+  z-index: 999;
+}
+
+.editor-controls {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  width: $editor-controls-width;
+  height: $editor-controls-height;
+  margin-top: -$editor-controls-height / 2;
+  z-index: 1000;
+  border: 1px solid $sidebar-button-border-color;
+  border-right: 0;
+  background-color: $sidebar-background-color;
+}
+
+.editor-controls-button-list {
+  @extend .full-size;
+  margin: 0;
+  padding: 5px;
+  list-style-type: none;
+}
+
+.editor-controls-button {
+  @extend .color-transition;
+  width: $editor-controls-button-size;
+  height: $editor-controls-button-size;
+  font-size: $editor-controls-button-size - 15;
+  line-height: $editor-controls-button-size;
+  text-align: center;
+  vertical-align: middle;
+  color: $editor-controls-button-color;
+
+  > a {
+    @extend .color-transition;
+    color: $editor-controls-button-color;
+  }
+
+  > a:hover, > a:active, > a:focus {
+    @extend .color-transition;
+    color: $editor-controls-button-hover-color;
+    text-decoration: none;
+  }
+}
+
+.editor-controls-button:hover {
+  @extend .color-transition;
+  color: $editor-controls-button-hover-color;
+}
+
+.editor-controls-button-active {
+  @extend .editor-controls-button:hover;
+}
+
+.fullscreen-main {
+  margin-bottom: 0;
+}

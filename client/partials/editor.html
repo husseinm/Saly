@@ -1,0 +1,62 @@
+<side class="editor-controls">
+  <ul class="editor-controls-button-list">
+    <li id="fullscreenButton" class="editor-controls-button" ng-click="toggleFullscreen()">
+      <i class="fa fa-expand"></i>
+    </li>
+    <li class="dropdown editor-controls-button">
+      <a href="#" data-toggle="dropdown"
+         class="dropdown-toggle fa fa-picture-o"></a>
+      <ul class="dropdown-menu pull-right scrollable-menu">
+          <li ng-repeat="theme in themes">
+            <a href="#" ng-click="setTheme(theme)"
+              ng-class="{'dropdown-selected': themeSelected(theme)}">
+              {{ theme }}
+            </a>
+          </li>
+      </ul>
+    </li>
+    <li class="dropdown editor-controls-button">
+      <a href="#" data-toggle="dropdown" class="dropdown-toggle fa fa-font"></a>
+      <ul class="dropdown-menu pull-right">
+          <li ng-repeat="fontSize in fontSizes">
+            <a href="#" ng-click="setFontSize(fontSize)"
+              ng-class="{'dropdown-selected': fontSizeSelected(fontSize)}">
+              {{ fontSize }}px
+            </a>
+          </li>
+      </ul>
+    </li>
+    <li class="dropdown editor-controls-button">
+      <a href="#" data-toggle="dropdown" class="dropdown-toggle fa fa-keyboard-o"></a>
+      <ul class="dropdown-menu pull-right">
+          <li>
+            <a href="#" ng-click="setKeybinding('vim')"
+               ng-class="{'dropdown-selected': keybindingSelected('vim')}">
+               Vim
+            </a>
+          </li>
+          <li>
+            <a href="#" ng-click="setKeybinding('emacs')"
+               ng-class="{'dropdown-selected': keybindingSelected('emacs')}">
+               Emacs
+            </a>
+          </li>
+          <li>
+            <a href="#" ng-click="setKeybinding('ace')"
+               ng-class="{'dropdown-selected': keybindingSelected('ace')}">
+               Default
+            </a>
+          </li>
+      </ul>
+    </li>
+    <li class="editor-controls-button" ng-click="toggleReadOnly()"
+        ng-class="{'editor-controls-button-active': editor.getReadOnly()}">
+      <i class="fa fa-lock"></i>
+    </li>
+    <li class="editor-controls-button" ng-click="save()">
+      <i class="fa fa-save"></i>
+    </li>
+  </ul>
+</side>
+
+<div id="editor"></div>

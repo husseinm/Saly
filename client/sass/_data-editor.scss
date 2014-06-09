@@ -1,0 +1,23 @@
+/******\
+| Data |
+\******/
+$data-body-padding: 5px;
+$page-header-margin: 20px;
+$model-selection-list-margin-top: 15px;
+
+.data {
+  padding: 5px;
+}
+
+.breadcrumb {
+  background-color: transparent;
+}
+
+.page-header {
+  margin: 20px;
+  margin-bottom: 0;
+}
+
+.model-selection-list {
+  margin-top: $model-selection-list-margin-top;
+}
