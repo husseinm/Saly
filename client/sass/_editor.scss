@@ -10,18 +10,23 @@ $editor-controls-button-size: $editor-controls-width - 10 - 1; // Padd. + Marg.
 $editor-controls-button-color: $sidebar-icon-color;
 $editor-controls-button-hover-color: $navbar-link-hover-color;
 
-#editor {
+/*
+ * Global Editor
+ */
+#sovi-editor-wrapper {
   @extend .full-size;
-  z-index: 999;
+  position: relative;
+  overflow: hidden;
 }
 
 .editor-controls {
-  position: fixed;
-  top: 50%;
-  right: 0;
-  width: $editor-controls-width;
   height: $editor-controls-height;
-  margin-top: -$editor-controls-height / 2;
+  width: $editor-controls-width;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
   z-index: 1000;
   border: 1px solid $sidebar-button-border-color;
   border-right: 0;
@@ -68,4 +73,12 @@ $editor-controls-button-hover-color: $navbar-link-hover-color;
 
 .fullscreen-main {
   margin-bottom: 0;
+}
+
+/*
+ * Scripting Page
+ */
+#scripter {
+  @extend .full-size;
+  height: calc(100vh - (#{$navbar-height} + #{$footer-height}));
 }

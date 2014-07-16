@@ -24,7 +24,8 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+# MUST add host name here for the server to work without debug
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition

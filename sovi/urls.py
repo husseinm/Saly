@@ -13,6 +13,10 @@ urlpatterns = patterns(
     url(r'^api/', include(apiUrls), name='api'),
 
     url(r'^$', index, name='index'),
+    url(r'^teams/$', index, name='script'),
+    url(r'^events/$', index, name='script'),
+    url(r'^awards/$', index, name='script'),
+    url(r'^matches/$', index, name='script'),
     url(r'^script/$', index, name='script'),
     url(r'^reports/$', index, name='reports'),
     url(r'^preferences/$', index, name='current_preferences'),

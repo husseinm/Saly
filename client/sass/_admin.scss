@@ -20,6 +20,7 @@ $sidebar-background-color: $navbar-background-color;
 $sidebar-button-color: $sidebar-background-color;
 $sidebar-button-hover-color: #282828;
 $sidebar-button-border-color: #000;
+$sidebar-button-active-border: white 3px solid;
 $sidebar-icon-color: $navbar-text-color;
 
 // Footer
@@ -66,6 +67,7 @@ header {
 
 .username {
   @extend .float-right;
+  @extend .open-sans-light;
   font-size: $username-font-size;
 }
 
@@ -100,7 +102,11 @@ header {
 }
 
 main {
-  @extend .full-size;
+  @extend .full-size-important;
+}
+
+#content-wrapper {
+  padding-bottom: $footer-height;
   margin-bottom: -$footer-height;
 }
 
@@ -140,6 +146,7 @@ main {
  ***********/
 .sidebar {
   @extend .full-transition;
+  @extend .open-sans-light;
   position: fixed;
   top: $navbar-height;
   width: $sidebar-width;
@@ -185,6 +192,11 @@ nav {
 .sidebar-button:hover {
   @extend .full-transition;
   background-color: $sidebar-button-hover-color;
+  border-left: $sidebar-button-active-border;
+}
+
+.sidebar-button-active {
+  @extend .sidebar-button:hover;
 }
 
 .sidebar-button-text {
@@ -212,74 +224,4 @@ footer {
   background-color: $sidebar-background-color;
   color: $footer-text-color;
   overflow-y: hidden;
-}
-
-/*************************************
- *            Script Edit            *
- *************************************/
-$editor-controls-width: 50px;
-$editor-controls-height: 250px;
-$editor-controls-background-color: $sidebar-background-color;
-$editor-controls-button-size: $editor-controls-width - 10 - 1; // Padd. + Marg.
-$editor-controls-button-color: $sidebar-icon-color;
-$editor-controls-button-hover-color: $navbar-link-hover-color;
-
-#editor {
-  @extend .full-size;
-  z-index: 999;
-}
-
-.editor-controls {
-  position: fixed;
-  top: 50%;
-  right: 0;
-  width: $editor-controls-width;
-  height: $editor-controls-height;
-  margin-top: -$editor-controls-height / 2;
-  z-index: 1000;
-  border: 1px solid $sidebar-button-border-color;
-  border-right: 0;
-  background-color: $sidebar-background-color;
-}
-
-.editor-controls-button-list {
-  @extend .full-size;
-  margin: 0;
-  padding: 5px;
-  list-style-type: none;
-}
-
-.editor-controls-button {
-  @extend .color-transition;
-  width: $editor-controls-button-size;
-  height: $editor-controls-button-size;
-  font-size: $editor-controls-button-size - 15;
-  line-height: $editor-controls-button-size;
-  text-align: center;
-  vertical-align: middle;
-  color: $editor-controls-button-color;
-
-  > a {
-    @extend .color-transition;
-    color: $editor-controls-button-color;
-  }
-
-  > a:hover, > a:active, > a:focus {
-    @extend .color-transition;
-    color: $editor-controls-button-hover-color;
-    text-decoration: none;
-  }
-}
-
-.editor-controls-button:hover {
-  @extend .color-transition;
-  color: $editor-controls-button-hover-color;
-}
-
-.editor-controls-button-active {
-  @extend .editor-controls-button:hover;
-}
-
-.fullscreen-main {
-  margin-bottom: 0;
 }

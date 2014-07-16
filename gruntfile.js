@@ -34,7 +34,9 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: ['<%= bower.install.options.targetDir %>/js/**/*.js',
-                      '<%= appDir %>js/*.js'],
+                      '<%= appDir %>js/*.js',
+                      '<%= appDir %>js/**/*.js',
+                      '!<%= appDir %>js/tests/**/*.js'],
                 dest: '<%= appDir %>build/app.js'
             }
         },
@@ -59,12 +61,20 @@ module.exports = function (grunt) {
                 newcap: true,
                 noarg: true,
                 undef: true,
-                unused: true,
+                unused: false,
                 eqnull: true,
                 browser: true,
                 globals: {
                   "angular": true,
-                  "ace": true
+                  "ace": true,
+                  "describe": true,
+                  "it": true,
+                  "before": true,
+                  "beforeEach": true,
+                  "after": true,
+                  "afterEach": true,
+                  "expect": true,
+                  "inject": true
                 }
             },
             gruntfile: {
@@ -72,6 +82,7 @@ module.exports = function (grunt) {
             },
             lib_test: {
                 src: ['<%= appDir %>js/*.js', '<%= appDir %>js/**/*.js']
+
             }
         },
 
@@ -132,17 +143,13 @@ module.exports = function (grunt) {
           makeBuildFolder: {
             command: 'mkdir -p <%= appDir %>build',
           },
-          fixBootstrap: {
-            command: 'cd <%= bower.install.options.targetDir %>/js/' + 
-                     'bootstrap-sass/ && mv tooltip.js a.js'
-          },
           moveAce: {
             command: 'cd <%= bower.install.options.targetDir %>/js/ace-builds' +
                      ' && mv ./mode-python.js ../mode-python.js && ' +
                      'rm -f ext-* && rm -f mode-* && rm -rf snippets && ' +
                      'rm -f worker-* && mv ../mode-python.js ./mode-python.js'
           }, 
-          moveFontAwesome: {
+          moveFA: {
             command: 'mv <%= bower.install.options.targetDir %>/fonts/' +
                      'font-awesome <%= appDir %>build/fonts',
           },
@@ -158,9 +165,6 @@ module.exports = function (grunt) {
           },
           cleanBuild: {
             command: 'rm -rf <%= appDir %>build',
-          },
-          cleanHtml: {
-            command: 'rm -rf sovi/templates/build'
           }
         },
 
@@ -178,27 +182,21 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-compass');
-    grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-shell-spawn');
     grunt.loadNpmTasks('grunt-bower-task');
 
     // Tasks
     grunt.registerTask('default', ['shell:cleanBower', 'shell:cleanBuild',
-                                   'shell:cleanHtml', 'jshint',
-                                   'shell:makeBuildFolder',
+                                   'jshint', 'shell:makeBuildFolder',
                                    'shell:copyPartials', 'shell:bowerInstall',
-                                   'bower', 'shell:moveFontAwesome',
-                                   'shell:moveAce', 'shell:fixBootstrap',
+                                   'bower', 'shell:moveFA', 'shell:moveAce',
                                    'concat', 'uglify', 'compass:dist',
                                    'shell:cleanBowerTemp']);
-    grunt.registerTask('test', ['jshint']);
     grunt.registerTask('serve', ['shell:cleanBower', 'shell:cleanBuild',
-                                 'shell:cleanHtml', 'jshint',
-                                 'shell:makeBuildFolder',
+                                 'jshint', 'shell:makeBuildFolder',
                                  'shell:copyPartials', 'shell:bowerInstall',
-                                 'bower', 'shell:moveFontAwesome',
-                                 'shell:moveAce', 'shell:fixBootstrap',
-                                 'concat', 'compass:dev',
+                                 'bower', 'shell:moveFA',
+                                 'shell:moveAce', 'concat', 'compass:dev',
                                  'shell:postgres', 'shell:gunicorn', 'watch']);
 };
