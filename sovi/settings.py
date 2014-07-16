@@ -91,7 +91,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_PATH, '../client/build'),
-    os.path.join(PROJECT_PATH, './client/build')
 )
 
 # Heroku + Local Database

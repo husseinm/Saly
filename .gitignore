@@ -94,7 +94,6 @@ Temporary Items
 bower/
 
 ### Build files ###
-build/
 node_modules/
 bower/
 BOWER_TEMP/
