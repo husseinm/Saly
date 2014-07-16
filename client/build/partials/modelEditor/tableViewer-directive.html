@@ -1,0 +1,89 @@
+<div ng-controller="PaginationController">
+  <pager class="model-table-pager" total-items="totalItems"
+    items-per-page="ipp" ng-change="updateResults(currentPage, query)"
+    ng-model="currentPage">
+  </pager>
+
+  <p class="text-center">
+    <i ng-pluralize class="model-table-result-count" 
+                    count="totalItems" 
+                    when="{ '0' : 'No Results',
+                            '1': '1 Result',
+                            'other': '{} Results' }">
+    </i>
+  </p>
+
+  <form class="form-horizontal">
+    <div class="form-group model-table-ipp">
+      <label class="col-sm-2 control-label model-table-ipp-label">
+        Items Per Page:
+      </label>
+      <div>
+        <select class="form-control model-table-ipp-select"
+                ng-init="selectedIpp = availableIpp[currentIppI]"
+                ng-model="selectedIpp"
+                ng-change="changeIpp(selectedIpp, currentPage, query)"
+                ng-options="Ipp for Ipp in availableIpp">
+        </select>
+      </div>
+    </div>
+    <div class="form-group model-table-action">
+      <label class="col-sm-2 control-label">
+        Action: 
+      </label>
+      <div class="col-sm-10">
+        <select class="form-control model-table-action-select"
+                ng-model="selectedAction"
+                ng-change="actionCb(selectedAction)"
+                ng-options="action for action in actions">
+          <option value="">Select an Action...</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group model-table-search">
+      <label class="col-sm-2 control-label">
+        Search: 
+      </label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control model-table-search-bar"
+               ng-model="query"
+               ng-change="updateResults(currentPage, query)">
+      </div>
+    </div>
+  </form>
+
+  <table class="table table-hover edit-icon-table-hover">
+    <thead>
+      <tr>
+        <th class="model-table-toggle-all">
+          <input type="checkbox" ng-model="data.allSelected"
+                                 ng-change="allRowsToggle()"/>
+        </th>
+        <th ng-repeat="column in data.headers">{{ column }}</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="row in visibleRows"
+            ng-class="{ 'model-table-row-selected': row.isSelected }">
+            <td class="model-table-select-col">
+              <input type="checkbox" ng-model="row.isSelected"
+                                     ng-change="updateRowSelected(row)">
+            </td>
+            <td ng-repeat="column in row.data">{{ column }}</td>
+            <td class="model-table-edit-col">
+              <i class="fa fa-pencil-square-o"
+                 ng-click="editRowCb(row)"></i>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <div class="model-table-pagination-wrapper">
+    <pagination direction-links="false"
+                boundary-links="true" total-items="totalItems"
+                items-per-page="ipp" max-size="5"
+                ng-change="updateResults(currentPage, query)" 
+                ng-model="currentPage">
+    </pagination>
+  </div>
+</div>

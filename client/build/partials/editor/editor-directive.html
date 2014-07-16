@@ -1,0 +1,72 @@
+<div id="sovi-editor-wrapper"
+   data-ng-class="{'full-size-important': isFullscreen}">
+  <side class="editor-controls" data-ng-controller="DropdownController">
+    <ul class="editor-controls-button-list">
+      <li class="editor-controls-button" data-ng-click="toggleFullscreen()"
+        data-ng-class="{'editor-controls-button-active': isFullscreen}">
+        <i class="fa fa-expand"></i>
+      </li>
+      <li class="dropdown editor-controls-button" 
+        data-on-toggle="toggled(open)">
+        <a href="#" class="dropdown-toggle fa fa-picture-o"></a>
+        <ul class="dropdown-menu pull-right scrollable-menu">
+          <li data-ng-repeat="theme in themes">
+            <a href="#" data-ng-click="setTheme(theme)"
+               data-ng-class="{'dropdown-selected': themeSelected(theme)}">
+              {{ theme }}
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="dropdown editor-controls-button"
+        data-on-toggle="toggled(open)">
+        <a href="#" class="dropdown-toggle fa fa-font"></a>
+        <ul class="dropdown-menu pull-right">
+          <li data-ng-repeat="fontSize in fontSizes">
+            <a href="#" data-ng-click="setFontSize(fontSize)"
+              data-ng-class="{'dropdown-selected': fontSizeSelected(fontSize)}">
+              {{ fontSize }}
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="dropdown editor-controls-button"
+        data-on-toggle="toggled(open)">
+        <a href="#" class="dropdown-toggle fa fa-keyboard-o"></>
+        <ul class="dropdown-menu pull-right">
+          <li>
+            <a href="#" data-ng-click="setKeybinding('vim')"
+              data-ng-class="{'dropdown-selected': keybindingSelected('vim')}">
+              Vim
+            </a>
+          </li>
+          <li>
+            <a href="#" data-ng-click="setKeybinding('emacs')"
+              data-ng-class="{'dropdown-selected': 
+                              keybindingSelected('emacs')}">
+              Emacs
+            </a>
+          </li>
+          <li>
+            <a href="#" data-ng-click="setKeybinding('ace')"
+              data-ng-class="{'dropdown-selected': keybindingSelected('ace')}">
+              Default
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="editor-controls-button" data-ng-click="toggleReadOnly()"
+        data-ng-class="{'editor-controls-button-active': editor.getReadOnly()}">
+        <i class="fa fa-lock"></i>
+      </li>
+      <li class="editor-controls-button" data-ng-click="save()">
+        <i class="fa fa-save"></i>
+      </li>
+    </ul>
+  </side>
+
+  <div id="editor" class="full-size"
+    data-ng-class="{'full-size-important': isFullscreen}"
+    data-ng-style="{'font-size': currentFontSize}">
+  </div>
+</div>
