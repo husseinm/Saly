@@ -25,7 +25,7 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 # MUST add host name here for the server to work without debug
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost', 'http://guarded-waters-180.herokuapp.com/']
 
 
 # Application definition
