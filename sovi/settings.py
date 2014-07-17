@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sovi',
+    'sovi.metadata',
     'sovi.api',
     'sovi.api.teams',
     'sovi.api.events',
