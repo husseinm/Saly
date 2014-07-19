@@ -1,6 +1,6 @@
 import requests
-from sovi.api.teams.models import Team, TeamName, TeamWebsite
-from sovi.metadata.models import TeamLastModify
+from sovi.api.teams.models import Team
+from sovi.metadata.models import LastModify
 from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -18,14 +18,20 @@ class Command(BaseCommand):
         currentPage = 0
         importedTeams = 0
 
+        # Teams
         while data:
+            # TODO: DRY
             try:
-                lastModified = TeamLastModify.objects.get(page=currentPage)
+                lastModified = LastModify.objects.get(page=currentPage,
+                                                      model='team')
                 headers['If-Modified-Since'] = lastModified.time
             except ObjectDoesNotExist:
-                lastModified = TeamLastModify(page=currentPage)
+                lastModified = LastModify(page=currentPage,
+                                          model='team')
 
             query = 'teams/' + str(currentPage)
+
+            # TODO: DRY
             response = requests.get(baseUrl + query, headers=headers)
             response.raise_for_status()
 
@@ -35,31 +41,18 @@ class Command(BaseCommand):
 
                 data = response.json()
 
+                # TODO: BEGIN
                 for team in data:
-                    teamWebsite = None
-                    teamName = None
+                    website = ''
                     name = ''
                     country = ''
                     region = ''
                     locality = ''
 
-                    if team['name'] and team['nickname']:
-                        name = team['name'] + ' - ' + team['nickname']
-                    elif team['name']:
-                        name = team['name']
-                    else:
+                    if team['nickname']:
                         name = team['nickname']
-
-                    if name:
-                        teamName = TeamName(number=team['team_number'],
-                                            name=name)
-                        teamName.save()
-
                     if team['website']:
-                        teamWebsite = TeamWebsite(number=team['team_number'],
-                                                  website=team['website'])
-                        teamWebsite.save()
-
+                        website = team['website']
                     if team['country_name']:
                         country = team['country_name']
                     if team['region']:
@@ -68,14 +61,15 @@ class Command(BaseCommand):
                         locality = team['locality']
 
                     team = Team(number=team['team_number'],
-                                name=teamName,
-                                website=teamWebsite,
+                                name=name,
+                                website=website,
                                 country=country,
                                 region=region,
                                 locality=locality)
 
                     team.save()
                     importedTeams += 1
+                    # TODO: End
 
             currentPage += 1
         self.stdout.write("Successfully imported " + str(importedTeams) +

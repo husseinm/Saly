@@ -131,8 +131,8 @@ module.exports = function (grunt) {
               async: true,
             }
           },
-          gunicorn: {
-            command: 'gunicorn sovi.wsgi',
+          runServer: {
+            command: 'python3 manage.py runserver',
             options: {
               async: true,
               execOptions: {
@@ -198,5 +198,5 @@ module.exports = function (grunt) {
                                  'shell:copyPartials', 'shell:bowerInstall',
                                  'bower', 'shell:moveFA',
                                  'shell:moveAce', 'concat', 'compass:dev',
-                                 'shell:postgres', 'shell:gunicorn', 'watch']);
+                                 'shell:postgres', 'shell:runServer', 'watch']);
 };
