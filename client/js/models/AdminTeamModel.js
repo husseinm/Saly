@@ -23,28 +23,35 @@ angular.module('sovi.controllers').controller('AdminTeamModel', ['$scope',
           return;
         }
 
-        $scope.table.control.data.headers = ['Number', 'Name', 'Country',
-                                             'Region', 'Locality', 'Website'];
-
-        // Create Func Arange + Flatten
-        _.each(teams, function(team) {
-          var currentRow = [];
+        var prepData = function(data, orderingMask) {
+          var result = {rows: [], headers: orderingMask};
           
-          _.each($scope.table.control.data.headers, function(column) {
-            var key = column.toLowerCase();
+          _.each(data, function(object) {
+            var currentRow = [];
+            
+            _.each(orderingMask, function(key) {
+              key = key.toLowerCase();
 
-            if (team[key] === '') {
-              team[key] = 'None';
-            }
+              if (object[key] === '') {
+                object[key] = 'None';
+              }
 
-            currentRow.push(team[key]);
+              currentRow.push(object[key]);
+            });
+
+            result.rows.push({
+              data: currentRow,
+              isSelected: false
+            });
           });
 
-          $scope.table.control.data.rows.push({
-            data: currentRow,
-            isSelected: false
-          });
-        });
+          return result;
+        };
+
+
+        $scope.table.control.data = prepData(teams, ['Number', 'Name',
+                                                     'Country', 'Region',
+                                                     'Locality', 'Website']);
 
         $scope.table.control.updateResults();
       }).

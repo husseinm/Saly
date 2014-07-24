@@ -4159,6 +4159,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
     "</ul>");
 }]);
 
+"use strict";angular.module("ui.route",[]).directive("uiRoute",["$location","$parse",function(a,b){return{restrict:"AC",scope:!0,compile:function(c,d){var e;if(d.uiRoute)e="uiRoute";else if(d.ngHref)e="ngHref";else{if(!d.href)throw new Error("uiRoute missing a route or href property on "+c[0]);e="href"}return function(c,d,f){function g(b){var d=b.indexOf("#");d>-1&&(b=b.substr(d+1)),(j=function(){i(c,a.path().indexOf(b)>-1)})()}function h(b){var d=b.indexOf("#");d>-1&&(b=b.substr(d+1)),(j=function(){var d=new RegExp("^"+b+"$",["i"]);i(c,d.test(a.path()))})()}var i=b(f.ngModel||f.routeModel||"$uiRoute").assign,j=angular.noop;switch(e){case"uiRoute":f.uiRoute?h(f.uiRoute):f.$observe("uiRoute",h);break;case"ngHref":f.ngHref?g(f.ngHref):f.$observe("ngHref",g);break;case"href":g(f.href)}c.$on("$routeChangeSuccess",function(){j()}),c.$on("$stateChangeSuccess",function(){j()})}}}}]);
 //     Underscore.js 1.6.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -5505,9 +5506,15 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
 
 'use strict';
 
+// Module Definitions
+angular.module('sovi.services', []);
+angular.module('sovi.directives', []);
+angular.module('sovi.controllers', ['sovi.services']);
+
 var sovi = angular.module('sovi', [
     'ngRoute',
     'ui.bootstrap',
+    'ui.route',
     'sovi.controllers',
     'sovi.services',
     'sovi.directives'
@@ -5518,26 +5525,26 @@ sovi.config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
     $routeProvider.
-      when('/', {
-        title: 'Data',
+      when('/data', {
+        title: 'Data Selection',
         templateUrl: '/static/partials/data.html',
       }).
-      when('/teams', {
+      when('/data/teams', {
         title: 'Team Data',
         templateUrl: '/static/partials/teamModel.html',
         controller: 'AdminTeamModel'
       }).
-      when('/events', {
+      when('/data/events', {
         title: 'Event Data',
         templateUrl: '/static/partials/eventModel.html',
         controller: 'AdminEventModel'
       }).
-      when('/awards', {
+      when('/data/awards', {
         title: 'Award Data',
         templateUrl: '/static/partials/awardModel.html',
         controller: 'AdminAwardModel'
       }).
-      when('/matches', {
+      when('/data/matches', {
         title: 'Match Data',
         templateUrl: '/static/partials/matchModel.html',
         controller: 'AdminMatchModel'
@@ -5553,41 +5560,26 @@ sovi.config(['$routeProvider', '$locationProvider',
         controller: 'AdminReportViewer'
       }).
       otherwise({
-        redirectTo: '/'
+        redirectTo: '/data'
       });
 }]);
 
 // Init
 sovi.run(['$location', '$rootScope', function($location, $rootScope) {
-    /* jshint unused:false */
-    $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+    $rootScope.$on('$routeChangeSuccess', function (event, current) {
         $rootScope.title = current.$$route.title;
         $rootScope.showSpinner = false;
     });
 
-    $rootScope.$on('$routeChangeStart', function (event, current, previous) {
+    $rootScope.$on('$routeChangeStart', function () {
         $rootScope.showSpinner = true;
     });
-
-    $rootScope.titleContains = function(name) {
-      $rootScope.title = $rootScope.title || '';
-
-      return $rootScope.title.toLowerCase().indexOf(name.toLowerCase()) > -1;
-    };
-    /* jshint unused:true */
 }]);
-
-// Module Definitions
-angular.module('sovi.services', []);
-angular.module('sovi.directives', []);
-angular.module('sovi.controllers', ['sovi.services', 'sovi.directives']);
-
 
 angular.module('sovi.controllers').controller('AdminScriptEditor', ['$scope',
   function($scope) {
     // Get the script and set the editor
     // HTTP
-
     $scope.scripter = {
       text: '# TODO: Actually GET the script from the server... And POST',
       onSave: function() {
@@ -5870,28 +5862,35 @@ angular.module('sovi.controllers').controller('AdminTeamModel', ['$scope',
           return;
         }
 
-        $scope.table.control.data.headers = ['Number', 'Name', 'Country',
-                                             'Region', 'Locality', 'Website'];
-
-        // Create Func Arange + Flatten
-        _.each(teams, function(team) {
-          var currentRow = [];
+        var prepData = function(data, orderingMask) {
+          var result = {rows: [], headers: orderingMask};
           
-          _.each($scope.table.control.data.headers, function(column) {
-            var key = column.toLowerCase();
+          _.each(data, function(object) {
+            var currentRow = [];
+            
+            _.each(orderingMask, function(key) {
+              key = key.toLowerCase();
 
-            if (team[key] === '') {
-              team[key] = 'None';
-            }
+              if (object[key] === '') {
+                object[key] = 'None';
+              }
 
-            currentRow.push(team[key]);
+              currentRow.push(object[key]);
+            });
+
+            result.rows.push({
+              data: currentRow,
+              isSelected: false
+            });
           });
 
-          $scope.table.control.data.rows.push({
-            data: currentRow,
-            isSelected: false
-          });
-        });
+          return result;
+        };
+
+
+        $scope.table.control.data = prepData(teams, ['Number', 'Name',
+                                                     'Country', 'Region',
+                                                     'Locality', 'Website']);
 
         $scope.table.control.updateResults();
       }).
@@ -6007,6 +6006,17 @@ angular.module('sovi.directives').directive('soviTable', function() {
   };
 });
 
+
+angular.module('sovi.controllers').controller('AdminPanelUi', ['$scope',
+  'soviPreferences', function ($scope, prefs) {
+    $scope.sidebarHidden = true;
+
+    $scope.toggleSidebar = function() {
+      $scope.sidebarHidden = !$scope.sidebarHidden;
+    };
+
+    // TODO: If needed implement Spinner here
+}]);
 
 angular.module('sovi.controllers').controller('AdminReportViewer', ['$scope', 
   function($scope) {

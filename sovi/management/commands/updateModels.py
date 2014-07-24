@@ -49,15 +49,15 @@ class Command(BaseCommand):
                     region = ''
                     locality = ''
 
-                    if team['nickname']:
+                    if team['nickname'] is not None:
                         name = team['nickname']
-                    if team['website']:
+                    if team['website'] is not None:
                         website = team['website']
-                    if team['country_name']:
+                    if team['country_name'] is not None:
                         country = team['country_name']
-                    if team['region']:
+                    if team['region'] is not None:
                         region = team['region']
-                    if team['locality']:
+                    if team['locality'] is not None:
                         locality = team['locality']
 
                     team = Team(number=team['team_number'],

@@ -139,16 +139,6 @@ $model-table-result-count-right-offset: 10px;
  * Mobile
  */
 @media screen and (max-width: 950px) {
-  .wrapper {
-    margin-left: $sidebar-width;
-    padding-left: 0;
-  }
-
-  .wrapper-hidden {
-    margin-left: 0;
-    padding-left: 0;
-  }
-
   .model-table-ipp {
     margin-left: 0 !important;
     float: none;
@@ -174,16 +164,6 @@ $model-table-result-count-right-offset: 10px;
 }
 
 @media screen and (max-width: 767px) {
-  .wrapper {
-    margin-left: $sidebar-width;
-    padding-left: 0;
-  }
-
-  .wrapper-hidden {
-    margin-left: 0;
-    padding-left: 0;
-  }
-
   .model-table-ipp {
     margin-left: 0 !important;
     float: none;

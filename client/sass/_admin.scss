@@ -90,22 +90,24 @@ header {
 }
 
 .wrapper {
+  @extend .full-size-min-important;
   @extend .full-size-important;
   @extend .full-transition;
-  padding-top: $navbar-height;
-  padding-left: $sidebar-width;
+  background-color: white;
+  position: relative;
+  z-index: 1000;
+  overflow-y: auto;
+  margin-left: $sidebar-width;
 }
 
-.wrapper-hidden {
+.wrapper-sidebar-hidden {
   @extend .full-transition;
-  padding-left: 0;
+  margin-left: 0;
 }
 
 main {
-  @extend .full-size-important;
-}
-
-#content-wrapper {
+  @extend .full-size-min-important;
+  padding-top: $navbar-height;
   padding-bottom: $footer-height;
   margin-bottom: -$footer-height;
 }
@@ -148,18 +150,10 @@ main {
   @extend .full-transition;
   @extend .open-sans-light;
   position: fixed;
-  top: $navbar-height;
   width: $sidebar-width;
   height: 100%;
   border-right: 1px solid $sidebar-button-border-color;
-  z-index: 1000;
   background-color: $sidebar-background-color;
-}
-
-.sidebar-hidden {
-  @extend .full-transition;
-  width: 0;
-  border: 0;
 }
 
 nav {

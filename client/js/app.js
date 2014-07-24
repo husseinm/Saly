@@ -1,8 +1,14 @@
 'use strict';
 
+// Module Definitions
+angular.module('sovi.services', []);
+angular.module('sovi.directives', []);
+angular.module('sovi.controllers', ['sovi.services']);
+
 var sovi = angular.module('sovi', [
     'ngRoute',
     'ui.bootstrap',
+    'ui.route',
     'sovi.controllers',
     'sovi.services',
     'sovi.directives'
@@ -13,26 +19,26 @@ sovi.config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
     $routeProvider.
-      when('/', {
-        title: 'Data',
+      when('/data', {
+        title: 'Data Selection',
         templateUrl: '/static/partials/data.html',
       }).
-      when('/teams', {
+      when('/data/teams', {
         title: 'Team Data',
         templateUrl: '/static/partials/teamModel.html',
         controller: 'AdminTeamModel'
       }).
-      when('/events', {
+      when('/data/events', {
         title: 'Event Data',
         templateUrl: '/static/partials/eventModel.html',
         controller: 'AdminEventModel'
       }).
-      when('/awards', {
+      when('/data/awards', {
         title: 'Award Data',
         templateUrl: '/static/partials/awardModel.html',
         controller: 'AdminAwardModel'
       }).
-      when('/matches', {
+      when('/data/matches', {
         title: 'Match Data',
         templateUrl: '/static/partials/matchModel.html',
         controller: 'AdminMatchModel'
@@ -48,32 +54,18 @@ sovi.config(['$routeProvider', '$locationProvider',
         controller: 'AdminReportViewer'
       }).
       otherwise({
-        redirectTo: '/'
+        redirectTo: '/data'
       });
 }]);
 
 // Init
 sovi.run(['$location', '$rootScope', function($location, $rootScope) {
-    /* jshint unused:false */
-    $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+    $rootScope.$on('$routeChangeSuccess', function (event, current) {
         $rootScope.title = current.$$route.title;
         $rootScope.showSpinner = false;
     });
 
-    $rootScope.$on('$routeChangeStart', function (event, current, previous) {
+    $rootScope.$on('$routeChangeStart', function () {
         $rootScope.showSpinner = true;
     });
-
-    $rootScope.titleContains = function(name) {
-      $rootScope.title = $rootScope.title || '';
-
-      return $rootScope.title.toLowerCase().indexOf(name.toLowerCase()) > -1;
-    };
-    /* jshint unused:true */
 }]);
-
-// Module Definitions
-angular.module('sovi.services', []);
-angular.module('sovi.directives', []);
-angular.module('sovi.controllers', ['sovi.services', 'sovi.directives']);
-

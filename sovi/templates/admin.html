@@ -11,38 +11,27 @@
     </div>
   </div>
 
-  <div class="wrapper-admin-panel">
-    <header>
-      <a href="#" target="_self" ng-click="expandButton = !expandButton"
-         ng-init="expandButton = false">
-        <i class="fa fa-bars expand-sidebar"></i>
-      </a>
-      <span class="username">
-        {{ user.first_name | capfirst }} 
-        {{ user.last_name | capfirst | slice:":1" }}.
-      </span>
-    </header>
-
-    <side class="sidebar" ng-class="{'sidebar-hidden': expandButton}">
-      <nav ng-hide="expandButton">
+  <div class="wrapper-admin-panel" ng-controller="AdminPanelUi">
+    <side class="sidebar">
+      <nav>
         <ul>
-          <a href="/">
-            <li class="sidebar-button" 
-            ng-class="{'sidebar-button-active': titleContains('data')}">
+          <a href="/data">
+            <li ui-route="/data" class="sidebar-button" 
+            ng-class="{'sidebar-button-active': $uiRoute}">
               <i class="fa fa-database sidebar-icon"></i>
               <span class="sidebar-button-text">Data</span>
             </li>
           </a>
           <a href="/script">
-            <li class="sidebar-button" 
-              ng-class="{'sidebar-button-active': titleContains('script')}">
+            <li ui-route="/script" class="sidebar-button" 
+              ng-class="{'sidebar-button-active': $uiRoute}">
               <i class="fa fa-code sidebar-icon"></i>
               <span class="sidebar-button-text">Script</span>
             </li>
           </a>
           <a href="/reports">
-            <li class="sidebar-button" 
-              ng-class="{'sidebar-button-active': titleContains('report')}">
+            <li ui-route="/reports" class="sidebar-button" 
+              ng-class="{'sidebar-button-active': $uiRoute}">
               <i class="fa fa-bar-chart-o sidebar-icon"></i>
               <span class="sidebar-button-text">Reports</span>
             </li>
@@ -57,19 +46,25 @@
       </nav>
     </side>
 
-    <div class="wrapper" ng-class="{'wrapper-hidden': expandButton}">
+    <div class="wrapper" ng-class="{'wrapper-sidebar-hidden': sidebarHidden}">
       <div ng-show="showSpinner" class="spinner spinner-v-align">
         <div class="cube1"></div>
         <div class="cube2"></div>
       </div>
-      <!--<sovi:loading-cubes/>-->
-      <div class="full-size-min-important" id="content-wrapper">
-        <main ng-view>
-        </div>
-        <footer>
-          <p>Place Something Here...</p>
-        </footer>
-      </div>
+      <header>
+        <a>
+          <i ng-click="toggleSidebar()" class="fa fa-bars expand-sidebar"></i>
+        </a>
+        <span class="username">
+          {{ user.first_name | capfirst }} 
+          {{ user.last_name | capfirst | slice:":1" }}.
+        </span>
+      </header>
+      <main ng-view ng-click="sidebarHidden = true">
+      </main>
+      <footer ng-click="sidebarHidden = true">
+        <p>Place Something Here...</p>
+      </footer>
     </div>
   </div>
 {% endblock %}
