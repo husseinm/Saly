@@ -3,7 +3,7 @@ angular.module('sovi.directives').directive('soviTable', function() {
     restrict: 'A',
     // TODO: Require here and editor
     scope: {
-      'data': '=',
+      'control': '=',
       'ipp': '=',
       'actions': '=',
       'doAction': '&',
@@ -11,9 +11,11 @@ angular.module('sovi.directives').directive('soviTable', function() {
     },
     templateUrl: '/static/partials/modelEditor/tableViewer-directive.html',
     controller: ['$scope', '$filter', function($scope, $filter) {
+      $scope.api = $scope.control || {};
+
       // Initialize Variables
       $scope.availableIpp = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
-      $scope.data.allSelected = false;
+      $scope.api.data.allSelected = false;
       $scope.currentIppI = 0;
       $scope.visibleRows = [];
       $scope.selectedRows = [];
@@ -40,24 +42,24 @@ angular.module('sovi.directives').directive('soviTable', function() {
       };
 
       $scope.updateResults = function(page, query) {
-        $scope.data.allSelected = false;
+        $scope.api.data.allSelected = false;
         $scope.allRowsToggle();
         page = page || 1;
 
         if (query && query !== '') {
-          var results = $filter('filter')($scope.data.rows, query);
+          var results = $filter('filter')($scope.api.data.rows, query);
           $scope.totalItems = results.length;
 
           $scope.visibleRows = $scope.getPage(page, results);
         } else {
-          $scope.totalItems = $scope.data.rows.length;
-          $scope.visibleRows = $scope.getPage(page, $scope.data.rows);
+          $scope.totalItems = $scope.api.data.rows.length;
+          $scope.visibleRows = $scope.getPage(page, $scope.api.data.rows);
         }
       };
 
       $scope.updateRowSelected = function(row) {
         if (row.isSelected === false) {
-          $scope.data.allSelected = false;
+          $scope.api.data.allSelected = false;
 
           for (var i in $scope.selectedRows) {
             if ($scope.selectedRows[i] === row) {
@@ -67,20 +69,20 @@ angular.module('sovi.directives').directive('soviTable', function() {
           }
         } else {
           if ($scope.selectedRows.push(row) === $scope.visibleRows.length) {
-            $scope.data.allSelected = true;
+            $scope.api.data.allSelected = true;
           }
         }
       };
 
       $scope.allRowsToggle = function() {
-        if ($scope.data.allSelected) {
+        if ($scope.api.data.allSelected) {
           $scope.selectedRows = $scope.visibleRows.slice(0);
         } else {
           $scope.selectedRows.splice(0);
         }
 
         for(var i in $scope.visibleRows) {
-          $scope.visibleRows[i].isSelected = $scope.data.allSelected;
+          $scope.visibleRows[i].isSelected = $scope.api.data.allSelected;
         }
       };
 
@@ -94,8 +96,8 @@ angular.module('sovi.directives').directive('soviTable', function() {
         }
       };
 
-      $scope.updateResults();
-    }]
+      $scope.api.updateResults = $scope.updateResults;
+    }],
   };
 });
 

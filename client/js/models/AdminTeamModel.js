@@ -1,9 +1,11 @@
 angular.module('sovi.controllers').controller('AdminTeamModel', ['$scope',
-  'soviPreferences', function ($scope, prefs) {
+  '$http', 'soviPreferences', function ($scope, $http, prefs) {
     $scope.table = {
-      data: {
-        headers: ['col1', 'col2', 'col3', 'col4'],
-        rows: []
+      control: {
+        data: {
+          headers: [],
+          rows: []
+        }
       },
       ipp: prefs.dataViewerIpp,
       actions: ['Delete'],
@@ -15,10 +17,42 @@ angular.module('sovi.controllers').controller('AdminTeamModel', ['$scope',
       }
     };
 
-    for (var i = 0; i < 100; i++) {
-      $scope.table.data.rows.push({
-        data: [i, i + 'a', i + 'b', i + 'c'],
-        isSelected: false
-      });
-    }
+    $http({method: 'GET', url: '/api/teams'}).
+      success(function(teams, status, headers, config) {
+        if (!teams || teams.length < 1) {
+          return;
+        }
+
+        $scope.table.control.data.headers = ['Number', 'Name', 'Country',
+                                             'Region', 'Locality', 'Website'];
+
+        // Create Func Arange + Flatten
+        _.each(teams, function(team) {
+          var currentRow = [];
+          
+          _.each($scope.table.control.data.headers, function(column) {
+            var key = column.toLowerCase();
+
+            if (team[key] === '') {
+              team[key] = 'None';
+            }
+
+            currentRow.push(team[key]);
+          });
+
+          $scope.table.control.data.rows.push({
+            data: currentRow,
+            isSelected: false
+          });
+        });
+
+        $scope.table.control.updateResults();
+      }).
+      error(function(data, status, headers, config) {
+        console.log(data);
+        console.log(status);
+        console.log(headers);
+        console.log(config);
+      }
+    );
 }]);

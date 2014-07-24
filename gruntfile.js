@@ -65,6 +65,7 @@ module.exports = function (grunt) {
                 eqnull: true,
                 browser: true,
                 globals: {
+                  "_": true,
                   "angular": true,
                   "ace": true,
                   "describe": true,
@@ -131,6 +132,15 @@ module.exports = function (grunt) {
               async: true,
             }
           },
+          gunicorn: {
+            command: 'gunicorn sovi.wsgi',
+            options: {
+              async: true,
+              execOptions: {
+                env: {'DJANGO_SETTINGS_MODULE':'sovi.settings'}
+              }
+            }
+          },
           runServer: {
             command: 'python3 manage.py runserver',
             options: {
@@ -193,9 +203,9 @@ module.exports = function (grunt) {
                                    'bower', 'shell:moveFA', 'shell:moveAce',
                                    'concat', 'uglify', 'compass:dist',
                                    'shell:cleanBowerTemp']);
-    grunt.registerTask('serve', ['shell:cleanBower', 'shell:cleanBuild',
+    grunt.registerTask('serve', [/*'shell:cleanBower',*/ 'shell:cleanBuild',
                                  'jshint', 'shell:makeBuildFolder',
-                                 'shell:copyPartials', 'shell:bowerInstall',
+                                 'shell:copyPartials', //'shell:bowerInstall',
                                  'bower', 'shell:moveFA',
                                  'shell:moveAce', 'concat', 'compass:dev',
                                  'shell:postgres', 'shell:runServer', 'watch']);
