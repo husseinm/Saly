@@ -10152,17 +10152,22 @@ td.visible-print {
 /********\
 | Global |
 \********/
-/* line 12, ../../sass/_global.scss */
+/* line 6, ../../sass/_global.scss */
+html, body {
+  overflow: hidden;
+}
+
+/* line 13, ../../sass/_global.scss */
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-top: 0;
 }
 
-/* line 17, ../../sass/_global.scss */
+/* line 18, ../../sass/_global.scss */
 a {
   cursor: pointer;
 }
 
-/* line 21, ../../sass/_global.scss */
+/* line 22, ../../sass/_global.scss */
 .open-sans-light, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .username, .sidebar, .model-select-header, .breadcrumb, .model-table-result-count {
   font-family: 'Open Sans', sans-serif !important;
   font-weight: 300 !important;
@@ -10242,7 +10247,7 @@ a {
 /**********
  * Header *
  **********/
-/* line 44, ../../sass/_admin.scss */
+/* line 43, ../../sass/_admin.scss */
 header {
   position: fixed;
   height: 50px;
@@ -10250,25 +10255,25 @@ header {
   z-index: 1001;
   text-align: center;
   border-bottom: 1px solid black;
-  background-color: #383838;
+  background-color: #33332d;
   color: white;
 }
 
-/* line 57, ../../sass/_admin.scss */
+/* line 56, ../../sass/_admin.scss */
 header > a {
   color: white;
 }
-/* line 62, ../../sass/_admin.scss */
+/* line 61, ../../sass/_admin.scss */
 header > a:hover, header > a:active, header > a:focus {
   color: #aaaaaa;
 }
 
-/* line 68, ../../sass/_admin.scss */
+/* line 67, ../../sass/_admin.scss */
 .username {
   font-size: 16px;
 }
 
-/* line 75, ../../sass/_admin.scss */
+/* line 74, ../../sass/_admin.scss */
 .expand-sidebar {
   font-size: 20px;
 }
@@ -10276,62 +10281,64 @@ header > a:hover, header > a:active, header > a:focus {
 /********
  * Body *
  ********/
-/* line 83, ../../sass/_admin.scss */
+/* line 82, ../../sass/_admin.scss */
 .loading-screen {
   display: none !important;
 }
 
-/* line 87, ../../sass/_admin.scss */
+/* line 86, ../../sass/_admin.scss */
 .wrapper-admin-panel {
   display: block !important;
 }
 
-/* line 92, ../../sass/_admin.scss */
+/* line 91, ../../sass/_admin.scss */
 .wrapper {
   background-color: white;
   position: relative;
   z-index: 1000;
   overflow-y: auto;
   margin-left: 150px;
+  -webkit-box-shadow: 0 0 30px 1px black;
+  box-shadow: 0 0 30px 1px black;
 }
 
-/* line 103, ../../sass/_admin.scss */
+/* line 105, ../../sass/_admin.scss */
 .wrapper-sidebar-hidden {
   margin-left: 0;
 }
 
-/* line 108, ../../sass/_admin.scss */
+/* line 110, ../../sass/_admin.scss */
 main {
   padding-top: 50px;
   padding-bottom: 50px;
   margin-bottom: -50px;
 }
 
-/* line 115, ../../sass/_admin.scss */
+/* line 117, ../../sass/_admin.scss */
 .dropdown-menu {
   background-color: #484848;
 }
-/* line 119, ../../sass/_admin.scss */
+/* line 121, ../../sass/_admin.scss */
 .dropdown-menu > li {
   text-align: left;
 }
-/* line 122, ../../sass/_admin.scss */
+/* line 124, ../../sass/_admin.scss */
 .dropdown-menu > li > a {
   color: white;
 }
-/* line 127, ../../sass/_admin.scss */
+/* line 129, ../../sass/_admin.scss */
 .dropdown-menu > li > a:hover {
-  background-color: #282828;
+  background-color: black;
   color: white;
 }
 
-/* line 135, ../../sass/_admin.scss */
+/* line 137, ../../sass/_admin.scss */
 .dropdown-selected {
-  background-color: #282828;
+  background-color: black;
   color: white;
 }
 
-/* line 140, ../../sass/_admin.scss */
+/* line 142, ../../sass/_admin.scss */
 .scrollable-menu {
   height: auto;
   max-height: 250px;
@@ -10341,16 +10348,15 @@ main {
 /***********
  * Sidebar *
  ***********/
-/* line 149, ../../sass/_admin.scss */
+/* line 151, ../../sass/_admin.scss */
 .sidebar {
   position: fixed;
   width: 150px;
   height: 100%;
-  border-right: 1px solid black;
-  background-color: #383838;
+  background-color: #2a2c2b;
 }
 
-/* line 160, ../../sass/_admin.scss */
+/* line 161, ../../sass/_admin.scss */
 nav ul {
   margin: 0;
   padding-left: 0;
@@ -10358,14 +10364,14 @@ nav ul {
   text-align: center;
 }
 /* line 167, ../../sass/_admin.scss */
-nav ul a > li {
+nav ul li {
   padding: 5px;
   border: none;
   background-color: none;
   color: white;
 }
 
-/* line 177, ../../sass/_admin.scss */
+/* line 176, ../../sass/_admin.scss */
 .sidebar-button {
   width: 150px;
   height: 50px;
@@ -10373,19 +10379,18 @@ nav ul a > li {
   border-bottom: 1px solid black;
 }
 
-/* line 186, ../../sass/_admin.scss */
+/* line 184, ../../sass/_admin.scss */
 .sidebar-button:hover, .sidebar-button-active {
-  background-color: #282828;
-  border-left: white 3px solid;
+  background-color: black;
 }
 
-/* line 196, ../../sass/_admin.scss */
+/* line 193, ../../sass/_admin.scss */
 .sidebar-button-text {
   line-height: 40px;
   vertical-align: middle;
 }
 
-/* line 201, ../../sass/_admin.scss */
+/* line 198, ../../sass/_admin.scss */
 .sidebar-icon {
   padding-left: 10px;
   line-height: 40px;
@@ -10396,15 +10401,16 @@ nav ul a > li {
 /**********
  * Footer *
  **********/
-/* line 213, ../../sass/_admin.scss */
+/* line 210, ../../sass/_admin.scss */
 footer {
   height: 50px;
   padding: 0 10px;
   line-height: 50px;
   vertical-align: middle;
-  background-color: #383838;
+  background-color: #33332d;
   color: white;
   overflow-y: hidden;
+  border-top: 1px solid black;
 }
 
 /********\
@@ -10621,7 +10627,7 @@ footer {
   z-index: 1000;
   border: 1px solid black;
   border-right: 0;
-  background-color: #383838;
+  background-color: #2a2c2b;
 }
 
 /* line 36, ../../sass/_editor.scss */

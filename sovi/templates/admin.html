@@ -16,7 +16,7 @@
       <nav>
         <ul>
           <a href="/data">
-            <li ui-route="/data" class="sidebar-button" 
+            <li ui-route="/data(.)*" class="sidebar-button" 
             ng-class="{'sidebar-button-active': $uiRoute}">
               <i class="fa fa-database sidebar-icon"></i>
               <span class="sidebar-button-text">Data</span>
@@ -60,9 +60,9 @@
           {{ user.last_name | capfirst | slice:":1" }}.
         </span>
       </header>
-      <main ng-view ng-click="sidebarHidden = true">
+      <main ng-view>
       </main>
-      <footer ng-click="sidebarHidden = true">
+      <footer>
         <p>Place Something Here...</p>
       </footer>
     </div>

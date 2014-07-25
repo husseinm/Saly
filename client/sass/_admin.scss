@@ -1,10 +1,9 @@
 /*******\
 | Admin |
 \*******/
-
 // Navbar
 $navbar-height: 50px;
-$navbar-background-color: #383838;
+$navbar-background-color: #33332D;
 $navbar-text-color: #FFF;
 $navbar-link-hover-color: #AAA;
 
@@ -14,17 +13,17 @@ $username-font-size: 16px;
 
 // Sidebar
 $sidebar-width: 150px;
-$sidebar-button-height: 50px;
+$sidebar-button-height: $navbar-height;
 $sidebar-icon-size: $expand-sidebar-icon-size;
-$sidebar-background-color: $navbar-background-color;
+$sidebar-background-color: #2A2C2B;
 $sidebar-button-color: $sidebar-background-color;
-$sidebar-button-hover-color: #282828;
+$sidebar-button-hover-color: #000;
 $sidebar-button-border-color: #000;
-$sidebar-button-active-border: white 3px solid;
 $sidebar-icon-color: $navbar-text-color;
 
 // Footer
 $footer-height: 50px;
+$footer-background-color: $navbar-background-color;
 $footer-text-color: $navbar-text-color;
 
 // Dropdown
@@ -98,6 +97,9 @@ header {
   z-index: 1000;
   overflow-y: auto;
   margin-left: $sidebar-width;
+
+  -webkit-box-shadow: 0 0 30px 1px rgba(0,0,0,1);
+  box-shadow: 0 0 30px 1px rgba(0,0,0,1);
 }
 
 .wrapper-sidebar-hidden {
@@ -152,7 +154,6 @@ main {
   position: fixed;
   width: $sidebar-width;
   height: 100%;
-  border-right: 1px solid $sidebar-button-border-color;
   background-color: $sidebar-background-color;
 }
 
@@ -163,13 +164,11 @@ nav {
     list-style-type: none;
     text-align: center;
 
-    a {
-      > li {
-        padding: 5px;
-        border: none;
-        background-color: none;
-        color: $sidebar-icon-color;
-      }
+    li {
+      padding: 5px;
+      border: none;
+      background-color: none;
+      color: $sidebar-icon-color;
     }
   }
 }
@@ -180,13 +179,11 @@ nav {
   height: $sidebar-button-height;
   display: inline-block;
   border-bottom: 1px solid $sidebar-button-border-color;
-
 }
 
 .sidebar-button:hover {
   @extend .full-transition;
   background-color: $sidebar-button-hover-color;
-  border-left: $sidebar-button-active-border;
 }
 
 .sidebar-button-active {
@@ -215,7 +212,8 @@ footer {
   padding: 0 10px;
   line-height: $footer-height;
   vertical-align: middle;
-  background-color: $sidebar-background-color;
+  background-color: $footer-background-color;
   color: $footer-text-color;
   overflow-y: hidden;
+  border-top: 1px solid $sidebar-button-border-color;
 }
