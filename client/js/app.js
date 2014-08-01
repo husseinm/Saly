@@ -1,6 +1,50 @@
 'use strict';
 
 // Module Definitions
+var ovUtils = {
+    toCamelCase: function(dirtyString) {
+        var camelString = dirtyString.toLowerCase();
+        camelString = camelString.replace(/ (.)/g,
+          function(m, firstLetterOfWord) {
+            return firstLetterOfWord.toUpperCase();
+        });
+
+        return camelString;
+    },
+    
+    prepData: function(data, orderingMask, processFunc) {
+        var result = {rows: [], headers: orderingMask};
+        var orderedKeys = [];
+
+        _.each(orderingMask, function(dirtyKey) {
+            orderedKeys.push(ovUtils.toCamelCase(dirtyKey));
+        });
+  
+        _.each(data, function(object) {
+            var currentRow = [];
+            
+            _.each(orderedKeys, function(key) {
+              if (object[key] === '') {
+                  object[key] = 'None';
+              }
+
+              currentRow.push(processFunc(object, key));
+            });
+
+            result.rows.push({
+                data: currentRow,
+                isSelected: false
+            });
+        });
+
+        return result;
+    },
+
+    capitalizeWord: function(word) {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+};
+
 angular.module('sovi.services', []);
 angular.module('sovi.directives', []);
 angular.module('sovi.controllers', ['sovi.services']);

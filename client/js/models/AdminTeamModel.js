@@ -1,3 +1,4 @@
+var ovUtils = ovUtils || {};
 angular.module('sovi.controllers').controller('AdminTeamModel', ['$scope',
   '$http', 'soviPreferences', function ($scope, $http, prefs) {
     $scope.table = {
@@ -23,36 +24,10 @@ angular.module('sovi.controllers').controller('AdminTeamModel', ['$scope',
           return;
         }
 
-        var prepData = function(data, orderingMask) {
-          var result = {rows: [], headers: orderingMask};
-          
-          _.each(data, function(object) {
-            var currentRow = [];
-            
-            _.each(orderingMask, function(key) {
-              key = key.toLowerCase();
+        var orderingMask = ['Number', 'Name', 'Country', 'Region', 'Locality',
+                            'Website'];
 
-              if (object[key] === '') {
-                object[key] = 'None';
-              }
-
-              currentRow.push(object[key]);
-            });
-
-            result.rows.push({
-              data: currentRow,
-              isSelected: false
-            });
-          });
-
-          return result;
-        };
-
-
-        $scope.table.control.data = prepData(teams, ['Number', 'Name',
-                                                     'Country', 'Region',
-                                                     'Locality', 'Website']);
-
+        $scope.table.control.data = ovUtils.prepData(teams, orderingMask);
         $scope.table.control.updateResults();
       }).
       error(function(data, status, headers, config) {

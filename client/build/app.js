@@ -1,5 +1,5 @@
 /*
- * Sovi - v0.0.1 - 2014-08-01
+ * Sovi - v0.0.1 - 2014-08-02
  * http://mahdihusse.in
  * Copyright (c) 2014 Mahdi Hussein <m@hdihusse.in>; Licensed MIT
  */
@@ -5507,6 +5507,50 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
 'use strict';
 
 // Module Definitions
+var ovUtils = {
+    toCamelCase: function(dirtyString) {
+        var camelString = dirtyString.toLowerCase();
+        camelString = camelString.replace(/ (.)/g,
+          function(m, firstLetterOfWord) {
+            return firstLetterOfWord.toUpperCase();
+        });
+
+        return camelString;
+    },
+    
+    prepData: function(data, orderingMask, processFunc) {
+        var result = {rows: [], headers: orderingMask};
+        var orderedKeys = [];
+
+        _.each(orderingMask, function(dirtyKey) {
+            orderedKeys.push(ovUtils.toCamelCase(dirtyKey));
+        });
+  
+        _.each(data, function(object) {
+            var currentRow = [];
+            
+            _.each(orderedKeys, function(key) {
+              if (object[key] === '') {
+                  object[key] = 'None';
+              }
+
+              currentRow.push(processFunc(object, key));
+            });
+
+            result.rows.push({
+                data: currentRow,
+                isSelected: false
+            });
+        });
+
+        return result;
+    },
+
+    capitalizeWord: function(word) {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+};
+
 angular.module('sovi.services', []);
 angular.module('sovi.directives', []);
 angular.module('sovi.controllers', ['sovi.services']);
@@ -5787,12 +5831,15 @@ angular.module('sovi.controllers').controller('AdminAwardModel', ['$scope',
     }
 }]);
 
+var ovUtils = ovUtils || {};
 angular.module('sovi.controllers').controller('AdminEventModel', ['$scope',
-  'soviPreferences', function ($scope, prefs) {
+  '$http', 'soviPreferences', function ($scope, $http, prefs) {
     $scope.table = {
-      data: {
-        headers: ['col1', 'col2', 'col3', 'col4'],
-        rows: []
+      control: {
+        data: {
+          headers: [],
+          rows: []
+        }
       },
       ipp: prefs.dataViewerIpp,
       actions: ['Delete'],
@@ -5804,12 +5851,32 @@ angular.module('sovi.controllers').controller('AdminEventModel', ['$scope',
       }
     };
 
-    for (var i = 0; i < 100; i++) {
-      $scope.table.data.rows.push({
-        data: [i, i + 'a', i + 'b', i + 'c'],
-        isSelected: false
-      });
-    }
+    $http({method: 'GET', url: '/api/events'}).
+      success(function(events, status, headers, config) {
+        if (!events || events.length < 1) {
+          return;
+        }
+
+        var orderingMask = ['Name', 'Is Official', 'Website'];
+        var capitalizeOfficial = function(row, key) {
+          if (key === 'isOfficial') {
+            row[key] = ovUtils.capitalizeWord(row[key].toString());
+          }
+
+          return row[key];
+        };
+
+        $scope.table.control.data = ovUtils.prepData(events, orderingMask,
+                                                     capitalizeOfficial);
+        $scope.table.control.updateResults();
+      }).
+      error(function(data, status, headers, config) {
+        console.log(data);
+        console.log(status);
+        console.log(headers);
+        console.log(config);
+      }
+    );
 }]);
 
 angular.module('sovi.controllers').controller('AdminMatchModel', ['$scope',
@@ -5837,6 +5904,7 @@ angular.module('sovi.controllers').controller('AdminMatchModel', ['$scope',
     }
 }]);
 
+var ovUtils = ovUtils || {};
 angular.module('sovi.controllers').controller('AdminTeamModel', ['$scope',
   '$http', 'soviPreferences', function ($scope, $http, prefs) {
     $scope.table = {
@@ -5862,36 +5930,10 @@ angular.module('sovi.controllers').controller('AdminTeamModel', ['$scope',
           return;
         }
 
-        var prepData = function(data, orderingMask) {
-          var result = {rows: [], headers: orderingMask};
-          
-          _.each(data, function(object) {
-            var currentRow = [];
-            
-            _.each(orderingMask, function(key) {
-              key = key.toLowerCase();
+        var orderingMask = ['Number', 'Name', 'Country', 'Region', 'Locality',
+                            'Website'];
 
-              if (object[key] === '') {
-                object[key] = 'None';
-              }
-
-              currentRow.push(object[key]);
-            });
-
-            result.rows.push({
-              data: currentRow,
-              isSelected: false
-            });
-          });
-
-          return result;
-        };
-
-
-        $scope.table.control.data = prepData(teams, ['Number', 'Name',
-                                                     'Country', 'Region',
-                                                     'Locality', 'Website']);
-
+        $scope.table.control.data = ovUtils.prepData(teams, orderingMask);
         $scope.table.control.updateResults();
       }).
       error(function(data, status, headers, config) {

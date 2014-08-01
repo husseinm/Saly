@@ -117,7 +117,8 @@ class Command(BaseCommand):
                                       isOfficial=event['official'],
                                       website=eventWebsite)
                 except ObjectDoesNotExist:
-                    event = Event(name=eventName, isOfficial=event['official'],
+                    event = Event(name=eventName,
+                                  isOfficial=event['official'],
                                   website=eventWebsite)
                     event.save()
                     importedEvents += 1
