@@ -1,5 +1,5 @@
 /*
- * Sovi - v0.0.1 - 2014-07-26
+ * Sovi - v0.0.1 - 2014-08-01
  * http://mahdihusse.in
  * Copyright (c) 2014 Mahdi Hussein <m@hdihusse.in>; Licensed MIT
  */
