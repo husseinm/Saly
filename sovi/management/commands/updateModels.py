@@ -1,5 +1,6 @@
 import requests
 from sovi.api.teams.models import Team
+from sovi.api.events.models import Event
 from sovi.metadata.models import LastModify
 from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
@@ -74,3 +75,52 @@ class Command(BaseCommand):
             currentPage += 1
         self.stdout.write("Successfully imported " + str(importedTeams) +
                           " teams")
+
+
+        # Events
+        data = ['Not Empty']
+        # TODO: DRY
+        try:
+            lastModified = LastModify.objects.get(page=currentPage,
+                                                  model='events')
+            headers['If-Modified-Since'] = lastModified.time
+        except ObjectDoesNotExist:
+            lastModified = LastModify(page=currentPage,
+                                      model='events')
+
+        query = 'events/'
+        importedEvents = 0
+
+        # TODO: DRY
+        response = requests.get(baseUrl + query, headers=headers)
+        response.raise_for_status()
+
+        if not response.status_code == 304:
+            lastModified.time = response.headers['last-modified']
+            lastModified.save()
+
+            data = response.json()
+
+            # TODO: BEGIN
+            for event in data:
+                eventName = ''
+                eventWebsite = ''
+
+                if event['name']:
+                    eventName = event['name']
+
+                if event['website']:
+                    eventWebsite = event['website']
+
+                try:
+                    Event.objects.get(name=eventName,
+                                      isOfficial=event['official'],
+                                      website=eventWebsite)
+                except ObjectDoesNotExist:
+                    event = Event(name=eventName, isOfficial=event['official'],
+                                  website=eventWebsite)
+                    event.save()
+                    importedEvents += 1
+
+        self.stdout.write("Successfully imported " + str(importedEvents) +
+                          " events")
