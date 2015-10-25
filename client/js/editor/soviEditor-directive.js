@@ -148,6 +148,7 @@ angular.module('sovi.directives').directive('soviEditor', ['soviPreferences',
 
           $scope.editor = ace.edit(editorId);
           $scope.editor.getSession().setMode("ace/mode/python");
+          $scope.editor.$blockScrolling = Infinity;
 
           // Emit save every x
 

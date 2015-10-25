@@ -1,7 +1,7 @@
 'use strict';
 
 // Module Definitions
-var ovUtils = {
+_.mixin({
     toCamelCase: function(dirtyString) {
         var camelString = dirtyString.toLowerCase();
         camelString = camelString.replace(/ (.)/g,
@@ -12,12 +12,13 @@ var ovUtils = {
         return camelString;
     },
     
-    prepData: function(data, orderingMask, processFunc) {
+    formatTableData: function(data, orderingMask, processFunc) {
         var result = {rows: [], headers: orderingMask};
         var orderedKeys = [];
+        processFunc = processFunc || function(o, k) {return o[k];};
 
         _.each(orderingMask, function(dirtyKey) {
-            orderedKeys.push(ovUtils.toCamelCase(dirtyKey));
+            orderedKeys.push(_(dirtyKey).toCamelCase());
         });
   
         _.each(data, function(object) {
@@ -43,7 +44,7 @@ var ovUtils = {
     capitalizeWord: function(word) {
         return word.charAt(0).toUpperCase() + word.slice(1);
     }
-};
+});
 
 angular.module('sovi.services', []);
 angular.module('sovi.directives', []);
@@ -105,7 +106,10 @@ sovi.config(['$routeProvider', '$locationProvider',
 // Init
 sovi.run(['$location', '$rootScope', function($location, $rootScope) {
     $rootScope.$on('$routeChangeSuccess', function (event, current) {
-        $rootScope.title = current.$$route.title;
+        if (current.$$route) {
+          $rootScope.title = current.$$route.title;
+        }
+
         $rootScope.showSpinner = false;
     });
 

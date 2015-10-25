@@ -1,4 +1,3 @@
-var ovUtils = ovUtils || {};
 angular.module('sovi.controllers').controller('AdminTeamModel', ['$scope',
   '$http', 'soviPreferences', function ($scope, $http, prefs) {
     $scope.table = {
@@ -27,7 +26,7 @@ angular.module('sovi.controllers').controller('AdminTeamModel', ['$scope',
         var orderingMask = ['Number', 'Name', 'Country', 'Region', 'Locality',
                             'Website'];
 
-        $scope.table.control.data = ovUtils.prepData(teams, orderingMask);
+        $scope.table.control.data = _.formatTableData(teams, orderingMask);
         $scope.table.control.updateResults();
       }).
       error(function(data, status, headers, config) {

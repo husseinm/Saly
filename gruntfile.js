@@ -160,8 +160,8 @@ module.exports = function (grunt) {
                      'rm -f worker-* && mv ../mode-python.js ./mode-python.js'
           }, 
           moveFA: {
-            command: 'mv <%= bower.install.options.targetDir %>/fonts/' +
-                     'font-awesome <%= appDir %>build/fonts',
+            command: 'mv <%= appDir %>bower/font-awesome/fonts' +
+                     '   <%= appDir %>build/fonts',
           },
           copyPartials: {
             command: 'cp -r <%= appDir %>partials <%= appDir %>build/partials',

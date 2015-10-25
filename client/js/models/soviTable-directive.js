@@ -11,7 +11,7 @@ angular.module('sovi.directives').directive('soviTable', function() {
     },
     templateUrl: '/static/partials/modelEditor/tableViewer-directive.html',
     controller: ['$scope', '$filter', function($scope, $filter) {
-      $scope.api = $scope.control || {};
+      $scope.api = $scope.control || {data: { headers: [], rows: [] }};
 
       // Initialize Variables
       $scope.availableIpp = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];

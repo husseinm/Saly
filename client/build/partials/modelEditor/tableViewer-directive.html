@@ -1,8 +1,8 @@
-<div ng-controller="PaginationController">
-  <pager class="model-table-pager" total-items="totalItems"
+<div ng-controller="UibPaginationController">
+  <uib-pager class="model-table-pager" total-items="totalItems"
     items-per-page="ipp" ng-change="updateResults(currentPage, query)"
     ng-model="currentPage">
-  </pager>
+  </uib-pager>
 
   <p class="text-center">
     <i ng-pluralize class="model-table-result-count" 
@@ -81,11 +81,11 @@
   </table>
 
   <div class="model-table-pagination-wrapper">
-    <pagination direction-links="false"
+    <uib-pagination direction-links="false"
                 boundary-links="true" total-items="totalItems"
                 items-per-page="ipp" max-size="5"
                 ng-change="updateResults(currentPage, query)" 
                 ng-model="currentPage">
-    </pagination>
+    </uib-pagination>
   </div>
 </div>

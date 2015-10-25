@@ -1,5 +1,6 @@
 // Twitter Bootstrap
-@import 'bootstrap-sass/lib/bootstrap';
+@import 'bootstrap-sass/assets/stylesheets/_bootstrap-sprockets.scss';
+@import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 
 // Font-Awesome
 $fa-font-path: '/static/fonts';

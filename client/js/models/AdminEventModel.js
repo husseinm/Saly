@@ -1,4 +1,3 @@
-var ovUtils = ovUtils || {};
 angular.module('sovi.controllers').controller('AdminEventModel', ['$scope',
   '$http', 'soviPreferences', function ($scope, $http, prefs) {
     $scope.table = {
@@ -27,13 +26,13 @@ angular.module('sovi.controllers').controller('AdminEventModel', ['$scope',
         var orderingMask = ['Name', 'Is Official', 'Website'];
         var capitalizeOfficial = function(row, key) {
           if (key === 'isOfficial') {
-            row[key] = ovUtils.capitalizeWord(row[key].toString());
+            row[key] = _(row[key].toString()).capitalizeWord();
           }
 
           return row[key];
         };
 
-        $scope.table.control.data = ovUtils.prepData(events, orderingMask,
+        $scope.table.control.data = _.formatTableData(events, orderingMask,
                                                      capitalizeOfficial);
         $scope.table.control.updateResults();
       }).
